@@ -1,0 +1,88 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<h:head>
+	<f:facet name="first">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+		<title>ted_project</title>
+	</f:facet>
+
+	<f:facet name="middle">
+		<h:outputStylesheet name="bootstrap/css/bootstrap.css" />
+		<h:outputStylesheet name="css/dashboard.css" />
+
+		<script
+			src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js" />
+
+		<h:outputScript name="bootstrap/js/bootstrap.js" />
+
+	</f:facet>
+
+	<f:facet name="last">
+
+	</f:facet>
+
+</h:head>
+
+<h:body>
+	<div id="header">
+		<ui:insert name="header">
+			<ui:include src="template/header.xhtml" />
+		</ui:insert>
+	</div>
+
+	<div id="content">
+
+
+		<h1>User List</h1>
+		<h:form>
+
+			<table class="table table-bordered table-striped">
+				<thead>
+					<tr>
+						<th>ID</th>
+						<th>Username</th>
+						<th>Password</th>
+						<th>First Name</th>
+						<th>Last Name</th>
+						<th>Email</th>
+						<th>Mobile Number</th>
+						<th>Role</th>
+						<th>Confirmed</th>
+					</tr>
+				</thead>
+				<tbody>
+					<ui:repeat var="usr" value="#{users.list}">
+						<tr>
+							<td>#{usr.id}</td>
+							<td>#{usr.username}</td>
+							<td>#{usr.password}</td>
+							<td>#{usr.firstName}</td>
+							<td>#{usr.lastName}</td>
+							<td>#{usr.email}</td>
+							<td>#{usr.mobileNumber}</td>
+							<td>#{usr.role}</td>
+							<td>#{usr.isConfirmed}</td>
+						</tr>
+					</ui:repeat>
+				</tbody>
+			</table>
+
+		</h:form>
+	</div>
+
+	<div id="footer">
+		<ui:insert name="footer">
+			<ui:include src="template/footer.xhtml" />
+		</ui:insert>
+	</div>
+
+</h:body>
+</html>

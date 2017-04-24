@@ -37,15 +37,15 @@ public class Message implements Serializable
 
 	@Basic(optional = false)
     @Column(name = "hiddenFromInbox")
-	private byte hiddenFromInbox;
+	private boolean hiddenFromInbox;
 
 	@Basic(optional = false)
     @Column(name = "hiddenFromOutbox")
-	private byte hiddenFromOutbox;
+	private boolean hiddenFromOutbox;
 
 	@Basic(optional = false)
     @Column(name = "IsRead")
-	private byte isRead;
+	private boolean isRead;
 
 	@Lob
 	@Basic(optional = false)
@@ -77,7 +77,7 @@ public class Message implements Serializable
 		this.id = id_;
 	}
 	
-	public Message(int id_, byte hiddenFromInbox_, byte hiddenFromOutbox_, byte isRead_, String text_, Date timeSent_, User user1_, User user2_)
+	public Message(int id_, boolean hiddenFromInbox_, boolean hiddenFromOutbox_, boolean isRead_, String text_, Date timeSent_, User user1_, User user2_)
 	{
 		this.id = id_;
 		this.hiddenFromInbox = hiddenFromInbox_;
@@ -99,32 +99,32 @@ public class Message implements Serializable
 		this.id = id;
 	}
 
-	public byte getHiddenFromInbox() 
+	public boolean getHiddenFromInbox() 
 	{
 		return this.hiddenFromInbox;
 	}
 
-	public void setHiddenFromInbox(byte hiddenFromInbox)
+	public void setHiddenFromInbox(boolean hiddenFromInbox)
 	{
 		this.hiddenFromInbox = hiddenFromInbox;
 	}
 
-	public byte getHiddenFromOutbox()
+	public boolean getHiddenFromOutbox()
 	{
 		return this.hiddenFromOutbox;
 	}
 
-	public void setHiddenFromOutbox(byte hiddenFromOutbox)
+	public void setHiddenFromOutbox(boolean hiddenFromOutbox)
 	{
 		this.hiddenFromOutbox = hiddenFromOutbox;
 	}
 
-	public byte getIsRead()
+	public boolean getIsRead()
 	{
 		return this.isRead;
 	}
 
-	public void setIsRead(byte isRead)
+	public void setIsRead(boolean isRead)
 	{
 		this.isRead = isRead;
 	}

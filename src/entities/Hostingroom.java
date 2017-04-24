@@ -31,24 +31,24 @@ public class Hostingroom implements Serializable
 
 	private int bedsNumber;
 
-	private byte coolingAmenity;
+	private boolean coolingAmenity;
 
 	private double costPerNight;
 
 	@Lob
 	private String description;
 
-	private byte elevatorAmenity;
+	private boolean elevatorAmenity;
 
-	private byte eventsRule;
+	private boolean eventsRule;
 
 	private double extraPeopleCost;
 
 	private String frontPhoto;
 
-	private byte heatingAmenity;
+	private boolean heatingAmenity;
 
-	private byte kitchenAmenity;
+	private boolean kitchenAmenity;
 
 	private BigDecimal latitude;
 
@@ -64,9 +64,9 @@ public class Hostingroom implements Serializable
 
 	private String neighborhood;
 
-	private byte parkingAmenity;
+	private boolean parkingAmenity;
 
-	private byte petsRule;
+	private boolean petsRule;
 
 	private String publicTransit;
 
@@ -74,11 +74,11 @@ public class Hostingroom implements Serializable
 
 	private String roomType;
 
-	private byte smokingRule;
+	private boolean smokingRule;
 
-	private byte TVAmenity;
+	private boolean TVAmenity;
 
-	private byte wifiAmenity;
+	private boolean wifiAmenity;
 
 	//bi-directional many-to-one association to Availablehostingperiod
 	@OneToMany(mappedBy="hostingroom")
@@ -162,11 +162,11 @@ public class Hostingroom implements Serializable
 		this.bedsNumber = bedsNumber;
 	}
 
-	public byte getCoolingAmenity() {
+	public boolean getCoolingAmenity() {
 		return this.coolingAmenity;
 	}
 
-	public void setCoolingAmenity(byte coolingAmenity) {
+	public void setCoolingAmenity(boolean coolingAmenity) {
 		this.coolingAmenity = coolingAmenity;
 	}
 
@@ -186,19 +186,19 @@ public class Hostingroom implements Serializable
 		this.description = description;
 	}
 
-	public byte getElevatorAmenity() {
+	public boolean getElevatorAmenity() {
 		return this.elevatorAmenity;
 	}
 
-	public void setElevatorAmenity(byte elevatorAmenity) {
+	public void setElevatorAmenity(boolean elevatorAmenity) {
 		this.elevatorAmenity = elevatorAmenity;
 	}
 
-	public byte getEventsRule() {
+	public boolean getEventsRule() {
 		return this.eventsRule;
 	}
 
-	public void setEventsRule(byte eventsRule) {
+	public void setEventsRule(boolean eventsRule) {
 		this.eventsRule = eventsRule;
 	}
 
@@ -218,19 +218,19 @@ public class Hostingroom implements Serializable
 		this.frontPhoto = frontPhoto;
 	}
 
-	public byte getHeatingAmenity() {
+	public boolean getHeatingAmenity() {
 		return this.heatingAmenity;
 	}
 
-	public void setHeatingAmenity(byte heatingAmenity) {
+	public void setHeatingAmenity(boolean heatingAmenity) {
 		this.heatingAmenity = heatingAmenity;
 	}
 
-	public byte getKitchenAmenity() {
+	public boolean getKitchenAmenity() {
 		return this.kitchenAmenity;
 	}
 
-	public void setKitchenAmenity(byte kitchenAmenity) {
+	public void setKitchenAmenity(boolean kitchenAmenity) {
 		this.kitchenAmenity = kitchenAmenity;
 	}
 
@@ -290,19 +290,19 @@ public class Hostingroom implements Serializable
 		this.neighborhood = neighborhood;
 	}
 
-	public byte getParkingAmenity() {
+	public boolean getParkingAmenity() {
 		return this.parkingAmenity;
 	}
 
-	public void setParkingAmenity(byte parkingAmenity) {
+	public void setParkingAmenity(boolean parkingAmenity) {
 		this.parkingAmenity = parkingAmenity;
 	}
 
-	public byte getPetsRule() {
+	public boolean getPetsRule() {
 		return this.petsRule;
 	}
 
-	public void setPetsRule(byte petsRule) {
+	public void setPetsRule(boolean petsRule) {
 		this.petsRule = petsRule;
 	}
 
@@ -330,27 +330,27 @@ public class Hostingroom implements Serializable
 		this.roomType = roomType;
 	}
 
-	public byte getSmokingRule() {
+	public boolean getSmokingRule() {
 		return this.smokingRule;
 	}
 
-	public void setSmokingRule(byte smokingRule) {
+	public void setSmokingRule(boolean smokingRule) {
 		this.smokingRule = smokingRule;
 	}
 
-	public byte getTVAmenity() {
+	public boolean getTVAmenity() {
 		return this.TVAmenity;
 	}
 
-	public void setTVAmenity(byte TVAmenity) {
+	public void setTVAmenity(boolean TVAmenity) {
 		this.TVAmenity = TVAmenity;
 	}
 
-	public byte getWifiAmenity() {
+	public boolean getWifiAmenity() {
 		return this.wifiAmenity;
 	}
 
-	public void setWifiAmenity(byte wifiAmenity) {
+	public void setWifiAmenity(boolean wifiAmenity) {
 		this.wifiAmenity = wifiAmenity;
 	}
 

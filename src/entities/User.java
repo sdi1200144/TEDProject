@@ -1,6 +1,7 @@
 package entities;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 
@@ -70,7 +71,7 @@ public class User implements Serializable
 	
 	@Basic(optional = false)
     @Column(name = "isConfirmed")
-	private byte isConfirmed;
+	private boolean isConfirmed;
 
 	
 	//bi-directional many-to-one association to Booking (GuestId Foreign Key)
@@ -114,7 +115,7 @@ public class User implements Serializable
 		this.id = id_;
 	}
 	
-	public User(int id_,String username_, String password_, String email_, String role_, byte isConfirmed_  )
+	public User(int id_,String username_, String password_, String email_, String role_, boolean isConfirmed_  )
 	{
 		this.id = id_;
 		this.username = username_;
@@ -124,7 +125,7 @@ public class User implements Serializable
 		this.isConfirmed = isConfirmed_;	
 	}
 	
-	public User(int id_,String username_, String password_, String firstname_, String lastname_, String email_, String mobilenumber_,String role_, String photo_, byte isConfirmed_)
+	public User(int id_,String username_, String password_, String firstname_, String lastname_, String email_, String mobilenumber_,String role_, String photo_, boolean isConfirmed_)
 	{
 		this.id = id_;
 		this.username = username_;
@@ -233,12 +234,12 @@ public class User implements Serializable
 		this.photo = photo;
 	}
 
-	public byte getIsConfirmed() 
+	public boolean getIsConfirmed() 
 	{
 		return this.isConfirmed;
 	}
 
-	public void setIsConfirmed(byte isConfirmed) 
+	public void setIsConfirmed(boolean isConfirmed) 
 	{
 		this.isConfirmed = isConfirmed;
 	}
@@ -472,5 +473,6 @@ public class User implements Serializable
      {
         return "entities.User[ username=" + username + " ]";
      }
+	 
 
 }

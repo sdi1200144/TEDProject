@@ -1,0 +1,79 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+
+<head>
+</head>
+<body>
+	<ui:composition>
+		<div class="container-fluid">
+			<div class="row">
+			           <!--      <div class="col-sm-3 col-md-2 sidebar">
+                    <ui:include src="leftMenu.xhtml" />
+                </div>  -->
+				<ui:insert name="content" />
+
+				<div class="row">
+					<div class="col-md-4 col-md-offset-4">
+						<h2>Test Content!</h2>
+						<h2>Insert user to database</h2>
+						<h:form styleClass="form-horizontal">
+							<div class="form-group">
+								<h:outputLabel value="User ID"
+									styleClass="control-label col-sm-3" />
+								<div class="col-sm-9">
+									<h:inputText id="id" styleClass="form-control"
+										a:placeholder="Enter your ID"  value="#{user.id}"  />
+										
+								</div>
+							</div>
+							<div class="form-group">
+								<h:outputLabel value="User Name"
+									styleClass="control-label col-sm-3" />
+								<div class="col-sm-9">
+									<h:inputText id="username" value="#{user.username}" styleClass="form-control" requiredMessage="Please enter your username" required="true"  />
+									<h:message for="username" styleClass="error"/>
+								</div>
+							</div>
+							<div class="form-group">
+								<h:outputLabel value="User Email"
+									styleClass="control-label col-sm-3" />
+								<div class="col-sm-9">
+									<h:inputText id="usermail" value="#{user.email}" styleClass="form-control" requiredMessage="Please enter your email" required="true" />
+									<h:message for="usermail" styleClass="error"/>
+								</div>
+							</div>
+							<div class="form-group">
+								<h:outputLabel value="User Role"
+									styleClass="control-label col-sm-3" />
+								<div class="col-sm-9">
+									<h:inputText id="userrole" value="#{user.role}" styleClass="form-control" requiredMessage="Please enter your role" required="true"/>
+									<h:message for="userrole" styleClass="error"/>
+								</div>
+							</div>
+							<div class="form-group">
+								<h:outputLabel value="User Password"
+									styleClass="control-label col-sm-3" />
+								<div class="col-sm-9">
+									<h:inputSecret id="userpassword" value="#{user.password}" styleClass="form-control" requiredMessage="Please enter your password" required="true"/>
+									<h:message for="userpassword" styleClass="error"/>
+								</div>
+							</div>
+							<div class="form-group last">
+								<div class="col-sm-offset-3 col-sm-9">
+								<!-- 	<h:commandbutton value="Submit"  action="" actionlistener="">Submit </h:commandButton> -->
+									 <h:commandButton value="Submit" class="btn btn-default" action="#{user.registerUser()}"/>
+								</div>
+							</div>
+						</h:form>
+					</div>
+				</div>
+
+
+			</div>
+		</div>
+	</ui:composition>
+</body>
+</html>
