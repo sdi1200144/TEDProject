@@ -14,7 +14,7 @@ import java.util.List;
  */
 
 @Entity
-@Table(name="users")
+@Table(name="Users")
 @XmlRootElement
 
 @NamedQueries({

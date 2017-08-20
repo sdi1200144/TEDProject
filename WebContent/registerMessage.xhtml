@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+<head>
+</head>
+<body>
+	<ui:composition template="template/layout.xhtml">
+
+		<ui:define name="header">
+			<ui:include src="template/header2.xhtml" />
+		</ui:define>
+
+		<ui:define name="content">
+			<h:panelGroup layout="block" styleClass="background content-padding">
+				<h:panelGroup layout="block" styleClass="vpadding container">
+					<h:panelGroup layout="block"
+						styleClass="col-md-6 col-md-offset-3 panel panel-default text-center">
+						<h:outputText value="Registration Message1" />
+						<p>
+							~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+							I am a registration message
+							~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~</p>
+
+						<!-- 
+					<h:outputText value="#{msg.guestactivate}" rendered="#{isGuestActivated}/>
+					<h:outputText value="#{msg.hostactivate}" rendered="#{isHostActivated}/>
+					<h:outputText value="#{msg.bothactivate}" rendered="#{isBothActivated}/>
+					 -->
+						<h:button value="Let's Go!"
+							styleClass="btn btn-primary btn-success" outcome="index" />
+
+					</h:panelGroup>
+				</h:panelGroup>
+			</h:panelGroup>
+		</ui:define>
+
+	</ui:composition>
+
+</body>
+</html>

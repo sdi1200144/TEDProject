@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+
+<h:head>
+	<title>Ted Project</title>
+	<!--  <h:outputStylesheet name="newcss.css" library="css"/> -->
+
+
+</h:head>
+<h:body>
+	<ui:composition template="/template/layout_restricted.xhtml">
+		
+		<ui:define name="content">
+		
+			<!-- Validation JavaScript & CSS -->
+    		<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.js" />
+    		<script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" />
+    		<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+    		
+  			
+			<div class="row">
+				<div class="vpadding_registration">
+				
+					
+					<div class="container">
+			
+						<form class="well form-horizontal register_form" action=" " method="post"  id="register_form">
+				
+							<fieldset>
+				
+								<!-- Form Name -->
+								<div class="form-group center_text">
+								<h2><b>Welcome #{user.username}!!!</b></h2>
+								</div>
+			  
+							</fieldset>
+						
+						</form>
+			
+					</div>
+					
+				</div>
+					
+			</div>
+				
+		</ui:define>
+		
+	</ui:composition>
+
+</h:body>
+</html>

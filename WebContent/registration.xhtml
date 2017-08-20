@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Ted Project</title>
+	<!--  <h:outputStylesheet name="newcss.css" library="css"/> -->
+
+
+
+
+</h:head>
+<h:body>
+	<ui:composition template="template/layout.xhtml">
+		<ui:define name="content">
+		
+			<!-- Validation JavaScript & CSS -->
+    		<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.js" />
+    		<script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" />
+    		<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+    		
+  			<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.4.5/css/bootstrapvalidator.min.css "/>
+  			<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.4.5/js/bootstrapvalidator.min.js"/>
+  
+  	 		<h:outputScript library="js" name="register_validation.js" />
+			<div class="row">
+				<div class="vpadding_registration">
+				
+					
+					<div class="container">
+			
+						<form class="well form-horizontal register_form" action=" " method="post"  id="register_form">
+				
+							<fieldset>
+				
+								<!-- Form Name -->
+								<div class="form-group center_text">
+								<h2><b>Registration Form</b></h2>
+								</div>
+								
+								
+								<!-- Text input-->
+								
+								<div class="form-group">
+								  <label class="col-md-4 control-label">Username</label>  
+								  <div class="col-md-4 inputGroupContainer">
+								  <div class="input-group">
+								  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+								  <h:inputText id="username" name="username" value="#{user.username}" styleClass="form-control" type="text" a:placeholder="Username"/>
+									</div>
+								  </div>
+								</div>
+								
+								
+								<!-- Text input-->
+								<div class="form-group">
+								  <label class="col-md-4 control-label" >Password</label> 
+									<div class="col-md-4 inputGroupContainer">
+									<div class="input-group">
+								  <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+								  <h:inputSecret id="password" name="password" value="#{user.password}" styleClass="form-control" a:placeholder="Password"/>
+									</div>
+								  </div>
+								</div>
+					
+								<!-- Text input-->
+								<div class="form-group">
+								  <label class="col-md-4 control-label" >Confirm Password</label> 
+									<div class="col-md-4 inputGroupContainer">
+									<div class="input-group">
+								  <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+								  <h:inputSecret id="confirm_password" name="confirm_password" value="#{user.password}" styleClass="form-control" a:placeholder="Confirm Password"/>
+									</div>
+								  </div>
+								</div>
+								
+									<!-- Text input-->
+								<div class="form-group">
+								  <label class="col-md-4 control-label">First Name</label>  
+								  <div class="col-md-4 inputGroupContainer">
+								  <div class="input-group">
+								  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+								  <h:inputText id="firstname" name="firstname" value="#{user.firstName}" styleClass="form-control" type="text" a:placeholder="First Name"/>
+									</div>
+								  </div>
+								</div>
+								
+								<!-- Text input-->
+								<div class="form-group">
+								  <label class="col-md-4 control-label" >Last Name</label> 
+									<div class="col-md-4 inputGroupContainer">
+									<div class="input-group">
+								  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+								  <h:inputText id="lastname" name="lastname" value="#{user.lastName}" styleClass="form-control" a:placeholder="Last Name"/>
+									</div>
+								  </div>
+								</div>
+								
+								<!-- Text input-->
+							   <div class="form-group">
+								  <label class="col-md-4 control-label">E-Mail Address</label>  
+									<div class="col-md-4 inputGroupContainer">
+									<div class="input-group">
+										<span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+										<h:inputText id="email" name="email" value="#{user.email}" styleClass="form-control" a:placeholder="E-Mail Address"/>
+									</div>
+								  </div>
+							  </div>
+
+
+							  <!-- Text input-->
+							  <div class="form-group">
+								  <label class="col-md-4 control-label">Contact Number</label>  
+									<div class="col-md-4 inputGroupContainer">
+									<div class="input-group">
+										<span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
+										<h:inputText id="contact_no" name="contact_no" value="#{user.mobileNumber}" styleClass="form-control" a:placeholder="(69)"/>
+									</div>
+								  </div>
+							  </div>
+							  
+							  <!-- Dropdown input-->
+							  <div class="form-group"> 
+							  <label class="col-md-4 control-label">Role in DIAirbnb</label>
+								<div class="col-md-4 selectContainer">
+								<div class="input-group">
+									<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+								<h:selectOneMenu id="role" name="role" class="form-control selectpicker" value="#{user.role}" a:placeholder="Select a role">
+   									<f:selectItem itemValue="Guest" itemLabel="Guest" />
+   									<f:selectItem itemValue="Host" itemLabel="Host" />
+   									<f:selectItem itemValue="Host_Guest" itemLabel="Host and Guest" />
+								</h:selectOneMenu>
+							  </div>
+							</div>
+							</div>
+							
+							<!-- Register button-->
+							<div class="form-group last center_text">
+							
+								<h:commandButton value="Register" class="btn btn-primary invoke_javascript_button" >
+										<f:ajax event="click" listener="#{user.insertUser()}"/>
+								 </h:commandButton>
+								
+							</div>
+								  
+							</fieldset>
+							
+						</form>
+						
+			
+					</div>
+					
+				</div>
+					
+			</div>
+				
+		</ui:define>
+		
+	</ui:composition>
+
+</h:body>
+</html>

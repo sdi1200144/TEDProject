@@ -1,71 +1,61 @@
 package user_interface;
 
-import database.UserDAO;
-import entities.User;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
 import javax.faces.model.DataModel;
 import javax.faces.model.ListDataModel;
 
+import database.UserDAO;
+import entities.User;
 
-
-@ManagedBean(name="users")
+@ManagedBean(name = "users")
 @RequestScoped
 public class UserListBean 
 {
 
-    private DataModel<UserBean> userList;
+    private DataModel<UserBean> userList;    
+    private UserDAO userDB;
     
-    @ManagedProperty(value="#{userDAO}")
-    private UserDAO userDAO;
-   
-    
-    public DataModel<UserBean> getList()
+    public DataModel<UserBean> getUserList() 
     {
-        if (userList == null)
-        {
-            List<User> list = userDAO.getUsers();
-            if (list !=null) 
+        return userList;
+    }
+
+    public UserListBean() 
+    {
+        userDB = new UserDAO();
+        if (userList == null) {
+            List list = userDB.getAllUsersExceptAdmins();
+            if (list != null) 
             {
                 ArrayList<UserBean> uList = new ArrayList<UserBean>();
 
-                for (User u: list)
+                for (Object o : list) 
                 {
-               	System.out.println(u.toString());
+
                     UserBean ub = new UserBean();
-                    
-                    ub.setId(u.getId());
-                    ub.setUsername(u.getUsername());
-                    ub.setPassword(u.getPassword());
-                    ub.setFirstName(u.getFirstName());
-                    ub.setLastName(u.getLastName());
-                    ub.setEmail(u.getEmail());
-                    ub.setMobileNumber(u.getMobileNumber());
-                    ub.setRole(u.getRole());
-                    ub.setPhoto(u.getPhoto());
-                    ub.setIsConfirmed(u.getIsConfirmed());
+                    ub.setId(String.valueOf(((User) o).getId()));
+                    ub.setUsername(((User) o).getUsername());
+                    ub.setPassword(((User) o).getPassword());
+                    ub.setFirstName(((User) o).getFirstName());
+                    ub.setLastName(((User) o).getLastName());
+                    ub.setEmail(((User) o).getEmail());
+                    ub.setMobileNumber(((User) o).getMobileNumber());
+                    ub.setRole(((User) o).getRole());
+                    ub.setPhoto(((User) o).getPhoto());
+                    ub.setConfirmed(((User) o).getIsConfirmed());
                     
                     uList.add(ub);
+
                 }
                 userList = new ListDataModel<UserBean>(uList);
             }
         }
-        return userList;
     }
 
 
-	public UserDAO getUserDAO() {
-		return userDAO;
-	}
-
-
-	public void setUserDAO(UserDAO userDAO) {
-		this.userDAO = userDAO;
-	}
-    
-    
 }
 
