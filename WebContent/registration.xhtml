@@ -25,17 +25,18 @@
     		<script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" />
     		<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
     		
-  			<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.4.5/css/bootstrapvalidator.min.css "/>
+  		<!-- 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.4.5/css/bootstrapvalidator.min.css "/>
   			<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.4.5/js/bootstrapvalidator.min.js"/>
   
-  	 		<h:outputScript library="js" name="register_validation.js" />
+  			 <h:outputScript library="js" name="register_validation.js" /> -->
+  			
 			<div class="row">
 				<div class="vpadding_registration">
 				
 					
 					<div class="container">
 			
-						<form class="well form-horizontal register_form" action=" " method="post"  id="register_form">
+						<h:form class="well form-horizontal register_form" action=" " method="post"  id="register_form">
 				
 							<fieldset>
 				
@@ -52,10 +53,21 @@
 								  <div class="col-md-4 inputGroupContainer">
 								  <div class="input-group">
 								  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-								  <h:inputText id="username" name="username" value="#{user.username}" styleClass="form-control" type="text" a:placeholder="Username"/>
+								  
+								  
+								  		<h:inputText id="username" name="username" value="#{user.username}" styleClass="form-control" type="text" a:placeholder="Username"
+								  		required="true" requiredMessage="Please enter your username" 
+								  		validatorMessage="The username must be more than 6 and less than 30 characters long and can only consist of alphabetical, number, dot and underscore">
+								  				<f:validateLength minimum="6" maximum="30" />
+								  				<f:validateRegex pattern="^[a-zA-Z0-9_\.]+$"/>
+								  		</h:inputText>
+								  		
 									</div>
+									<h:message for="username" styleClass="error"/>
 								  </div>
 								</div>
+								
+								
 								
 								
 								<!-- Text input-->
@@ -64,8 +76,17 @@
 									<div class="col-md-4 inputGroupContainer">
 									<div class="input-group">
 								  <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-								  <h:inputSecret id="password" name="password" value="#{user.password}" styleClass="form-control" a:placeholder="Password"/>
+								  
+								  
+								  		<h:inputSecret id="password" name="password" value="#{user.password}" styleClass="form-control" a:placeholder="Password"
+								  			required="true" requiredMessage="Please enter your password" 
+								  			binding="#{passwordComponent}"
+								  			validatorMessage="The password must be more than 8 characters long and can only consist of alphabetical, number, dot and underscore">
+								  				<f:validateLength minimum="8" />
+								  				<f:validateRegex pattern="^[a-zA-Z0-9_\.]+$"/>
+								  		</h:inputSecret>
 									</div>
+									<h:message for="password" styleClass="error"/>
 								  </div>
 								</div>
 					
@@ -75,8 +96,15 @@
 									<div class="col-md-4 inputGroupContainer">
 									<div class="input-group">
 								  <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-								  <h:inputSecret id="confirm_password" name="confirm_password" value="#{user.password}" styleClass="form-control" a:placeholder="Confirm Password"/>
+								  
+								  
+								  		<h:inputSecret id="confirm" name="confirm_password" value="#{user.password}" styleClass="form-control" a:placeholder="Confirm Password"
+								  		required="true" requiredMessage="Please confirm your password" >	
+								  				<f:validator validatorId="confirmPasswordValidator" />
+    											<f:attribute name="passwordComponent" value="#{passwordComponent}" />
+								  		</h:inputSecret>
 									</div>
+									<h:message for="confirm" styleClass="error"/>
 								  </div>
 								</div>
 								
@@ -86,8 +114,15 @@
 								  <div class="col-md-4 inputGroupContainer">
 								  <div class="input-group">
 								  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-								  <h:inputText id="firstname" name="firstname" value="#{user.firstName}" styleClass="form-control" type="text" a:placeholder="First Name"/>
+								  
+								  
+								  		<h:inputText id="firstname" name="firstname" value="#{user.firstName}" styleClass="form-control" type="text" a:placeholder="First Name"
+								  		required="true" requiredMessage="Please enter your First Name"
+								  		validatorMessage="The first name must be more than 2 characters long">
+								  				<f:validateLength minimum="2" />
+								  		</h:inputText>
 									</div>
+									<h:message for="firstname" styleClass="error"/>
 								  </div>
 								</div>
 								
@@ -97,8 +132,15 @@
 									<div class="col-md-4 inputGroupContainer">
 									<div class="input-group">
 								  <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-								  <h:inputText id="lastname" name="lastname" value="#{user.lastName}" styleClass="form-control" a:placeholder="Last Name"/>
+								  
+								  
+								  		<h:inputText id="lastname" name="lastname" value="#{user.lastName}" styleClass="form-control" a:placeholder="Last Name"
+										required="true" requiredMessage="Please enter your Last Name"
+								  		validatorMessage="The last name must be more than 2 characters long">
+								  				<f:validateLength minimum="2" />
+								  		</h:inputText>
 									</div>
+									<h:message for="lastname" styleClass="error" />
 								  </div>
 								</div>
 								
@@ -108,10 +150,18 @@
 									<div class="col-md-4 inputGroupContainer">
 									<div class="input-group">
 										<span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
-										<h:inputText id="email" name="email" value="#{user.email}" styleClass="form-control" a:placeholder="E-Mail Address"/>
+										
+										
+											<h:inputText id="email" name="email" value="#{user.email}" styleClass="form-control" a:placeholder="E-Mail Address"
+												required="true" requiredMessage="Please enter your Email address"
+								  				validatorMessage="Please enter a valid Email Address">
+								  				 <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+								  			</h:inputText>
 									</div>
+									<h:message for="email" styleClass="error" />
 								  </div>
 							  </div>
+
 
 
 							  <!-- Text input-->
@@ -120,8 +170,16 @@
 									<div class="col-md-4 inputGroupContainer">
 									<div class="input-group">
 										<span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
-										<h:inputText id="contact_no" name="contact_no" value="#{user.mobileNumber}" styleClass="form-control" a:placeholder="(69)"/>
+										
+										
+											<h:inputText id="contact_no" name="contact_no" value="#{user.mobileNumber}" styleClass="form-control" a:placeholder="(69)"
+											required="true" requiredMessage="Please enter your Contact number"
+								  			validatorMessage="Please enter a valid contact number">
+								  				 <f:validateLength minimum="10" maximum="10" />
+								  				 <f:validateRegex pattern="^[0-9]{10}$" />
+								  		</h:inputText>
 									</div>
+									<h:message for="contact_no" styleClass="error" />
 								  </div>
 							  </div>
 							  
@@ -142,17 +200,12 @@
 							
 							<!-- Register button-->
 							<div class="form-group last center_text">
-							
-								<h:commandButton value="Register" class="btn btn-primary invoke_javascript_button" >
-										<f:ajax event="click" listener="#{user.insertUser()}"/>
-								 </h:commandButton>
-								
+								<h:commandButton value="Register" class="btn btn-primary" action="#{user.insertUser()}" />
 							</div>
 								  
 							</fieldset>
 							
-						</form>
-						
+						</h:form>
 			
 					</div>
 					
@@ -163,6 +216,7 @@
 		</ui:define>
 		
 	</ui:composition>
+
 
 </h:body>
 </html>

@@ -175,15 +175,12 @@ public class UserBean {
 		}
 		nuser.setPhoto(null);
 		
-	
-		nuser.setIsConfirmed(false);
 
 		String retMessage = userDB.insertNewUser(nuser);
 
 		if (retMessage.equals("ok")) 
 		{
-			FacesContext.getCurrentInstance().addMessage(null,new FacesMessage("Registration done!!"));
-			return "/restricted/successful?faces-redirect=true";
+			return "/index?faces-redirect=true";
 		} 
 		else 
 		{	
