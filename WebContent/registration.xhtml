@@ -200,7 +200,11 @@
 							
 							<!-- Register button-->
 							<div class="form-group last center_text">
-								<h:commandButton value="Register" class="btn btn-primary" action="#{user.insertUser()}" />
+								
+								<h:commandLink action="#{user.insertUser()}" styleClass="btn btn-primary">
+    										<i class="glyphicon glyphicon-ok"></i> Register
+								</h:commandLink>
+								
 							</div>
 								  
 							</fieldset>

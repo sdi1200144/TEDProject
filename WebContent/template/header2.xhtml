@@ -19,7 +19,7 @@
 							class="icon-bar"></span>
 					</button>
 					<h:outputText value="&lt;br/&gt;" escape="false" />
-					<a class="navbar-brand" href="#">Project name</a>
+					<a class="navbar-brand" href="#">DIAirbnb</a>
 				</h:panelGroup>
 				<!-- 				<div class="navbar-collapse collapse" >
 					<ul class="nav navbar-nav navbar-right">
@@ -40,41 +40,62 @@
 					styleClass="collapse navbar-collapse">
 					<ul class="nav navbar-nav navbar-right">
 					
+						<h:panelGroup rendered="#{user.showAuditAccounts()}">
 						<li>
 						<h:outputText value="&lt;br/&gt;" escape="false" /> 
-							<h:link outcome="admin_home.xhtml">
+							<h:link outcome="audit_accounts.xhtml" >
+							<h:panelGroup styleClass="glyphicon glyphicon-user"></h:panelGroup>
 								Audit Accounts
 							</h:link>
 						</li>
-
-						<li>
-						<h:outputText value="&lt;br/&gt;" escape="false" /> 
-						<h:link outcome="admin_home.xhtml">
-								Your Listings
-						</h:link></li>
-
-						<li>
-						<h:outputText value="&lt;br/&gt;" escape="false" /> 
-						<h:link outcome="admin_home.xhtml">
-								Trips
-						</h:link>
-						</li>
+						</h:panelGroup>
 						
 						
+						<h:panelGroup rendered="#{user.showExportXMLData()}">
 						<li>
 						<h:outputText value="&lt;br/&gt;" escape="false" /> 
-						<h:link outcome="admin_home.xhtml">
-								Messages
-						</h:link>
-						</li>
-						
-						
-						<li>
-						<h:outputText value="&lt;br/&gt;" escape="false" /> 
-							<h:link	outcome="admin_home.xhtml">
-								Account Settings
+							<h:link outcome="exportxmldata.xhtml" >
+							<h:panelGroup styleClass="glyphicon glyphicon-share-alt"></h:panelGroup>
+								Export XML Data
 							</h:link>
 						</li>
+						</h:panelGroup>
+
+
+						<h:panelGroup rendered="#{user.showListings()}">
+						<li>
+						<h:outputText value="&lt;br/&gt;" escape="false" /> 
+						<h:link outcome="mylistings.xhtml" >
+						<h:panelGroup styleClass="glyphicon glyphicon-home"></h:panelGroup>
+								My Listings
+						</h:link></li></h:panelGroup>
+						
+
+						<h:panelGroup rendered="#{user.showTrips()}"><li>
+						<h:outputText value="&lt;br/&gt;" escape="false" /> 
+						<h:link outcome="mytrips.xhtml" >
+						<h:panelGroup styleClass="glyphicon glyphicon-plane"></h:panelGroup>
+								My Trips
+						</h:link>
+						</li></h:panelGroup>
+						
+						
+						<h:panelGroup rendered="#{user.showMessages()}"><li>
+						<h:outputText value="&lt;br/&gt;" escape="false" /> 
+						<h:link outcome="mymessages.xhtml" >
+						<h:panelGroup styleClass="glyphicon glyphicon-envelope"></h:panelGroup>
+								My Messages
+						</h:link>
+						</li></h:panelGroup>
+						
+						
+						<h:panelGroup rendered="#{user.showAccountSettings()}"><li>
+						<h:outputText value="&lt;br/&gt;" escape="false" /> 
+							<h:link	outcome="accountsettings.xhtml" >
+							<h:panelGroup styleClass="glyphicon glyphicon-cog"></h:panelGroup>
+								Account Settings
+							</h:link>
+						</li></h:panelGroup>
 						
 						
 						<li class="logout-button">
@@ -83,42 +104,11 @@
 							</h:form>
 						</li>
 
-
-
-						<!--  style="padding-top: 5px; padding-left: 20px;" -->
-						<!-- class="navbar-form navbar-right" style="margin-right: 0px;"
- -->
-
 					</ul>
 
 				</h:panelGroup>
-				<!-- <h:commandButton value="Register" styleClass="btn btn-default" data-toggle="modal" data-target="#Login"
-						 /> -->
-
-
-
-				<!-- 				<h:panelGroup layout="block" styleClass="col-md-12  text-right ">
-					<h:message for="username" styleClass="error header-error-msg1" />
-
-					<h:message for="password" styleClass="error header-error-msg2" />
-
-				</h:panelGroup> -->
-
-
-
-				<!-- 				<div id="Login" class="modal fade">
-					<h2>hello</h2>
-				</div> -->
 			</h:panelGroup>
 		</h:panelGroup>
 	</ui:composition>
 </body>
 </html>
-
-
-<!-- 						<form class="form-signin">
-							<input type="text" class="form-control" placeholder="Email"
-								required autofocus> <input type="password"
-								class="form-control" placeholder="Password" required>
-									<button class="btn btn-lg btn-primary btn-block" type="submit">
-										Sign in</button> -->

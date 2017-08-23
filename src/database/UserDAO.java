@@ -100,7 +100,7 @@ public class UserDAO
         EntityTransaction tx = em.getTransaction();
         tx.begin();
 
-        Query q = em.createQuery("Select u from User u where u.role='Host' and isConfirmed=0 ");
+        Query q = em.createQuery("Select u from User u where u.isConfirmed=false ");
         users = q.getResultList();
 
         tx.commit();

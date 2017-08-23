@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Ted Project</title>
+	<!--  <h:outputStylesheet name="newcss.css" library="css"/> -->
+
+
+
+
+</h:head>
+<h:body>
+	<ui:composition template="/template/layout_restricted.xhtml">
+		<ui:define name="content">
+		
+			<!-- Validation JavaScript & CSS -->
+    		<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.js" />
+    		<script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" />
+    		<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+    		
+  		<!-- 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.4.5/css/bootstrapvalidator.min.css "/>
+  			<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.4.5/js/bootstrapvalidator.min.js"/>
+  
+  			 <h:outputScript library="js" name="register_validation.js" /> -->
+  			
+			<div class="row">
+				<div class="vpadding_registration">
+				
+					
+					<div class="container">
+			
+						<h:form class="well form-horizontal" action=" " method="post"  id="userprofile_form">
+						<fieldset>
+								 
+								 
+								 		<h:graphicImage value="#{profile.getUserProfilePhoto()}" style="display: inline"/>
+								 
+										 <div style="display: inline"><p:panelGrid columns="2" style="float:center">
+		                        				<f:facet name="header">
+		                            					User Profile
+		                        				</f:facet>
+						                        Username: <h:outputText id="userName" value="#{profile.username}" />
+						                        Password: <h:outputText id="password" value="#{profile.password}" /> 
+						                        First Name: <h:outputText id="firstName" value="#{profile.firstName}" /> 
+						                        Last Name: <h:outputText id="lastName" value="#{profile.lastName}" /> 
+						                        Email Address: <h:outputText id="email" value="#{profile.email}" /> 
+						                        Mobile Number: <h:outputText id="mobileNumber" value="#{profile.mobileNumber}" /> 
+						                        Role: <h:outputText id="role" value="#{profile.role}" />
+		                    			</p:panelGrid> </div>
+								
+								
+								<div align="center"> <p:commandButton value="#{profile.checkConfirm()}" icon="#{profile.iconConfirm()}" action="#{profile.approve()}" disabled="#{profile.isConfirmed}" ajax="true" style="margin:5px 5px 0 97px "/></div>
+                
+								<p:commandButton icon="ui-icon-arrowthick-1-w" value="Go Back" action="#{profile.goBack(user.role)}" immediate="true" style="margin:5px 5px 0 67px "/>
+						
+                    			
+             			
+						</fieldset>
+						</h:form>
+						
+							
+						
+					</div>
+					
+					
+					
+				</div>
+					
+			</div>
+				
+		</ui:define>
+		
+	</ui:composition>
+
+
+</h:body>
+</html>

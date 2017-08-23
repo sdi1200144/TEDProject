@@ -131,6 +131,11 @@ body
 	padding-bottom: 90px;
 }
 
+.vpadding_registrationmessage {
+	padding-top: 250px;
+	padding-bottom: 90px;
+}
+
 .center_text {
   text-align: center;
 }

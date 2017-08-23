@@ -5,6 +5,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
+
 import database.UserDAO;
 import entities.User;
 
@@ -23,6 +24,16 @@ public class UserBean {
 	private String photo;
 	private boolean isConfirmed;
 	private User currentUser;
+	
+	private String registerMessage;
+
+	public String getRegisterMessage() {
+		return registerMessage;
+	}
+
+	public void setRegisterMessage(String registerMessage) {
+		this.registerMessage = registerMessage;
+	}
 
 	public String getId() {
 		return id;
@@ -96,7 +107,7 @@ public class UserBean {
 		this.photo = photo;
 	}
 
-	public boolean isConfirmed() {
+	public boolean getIsConfirmed() {
 		return isConfirmed;
 	}
 
@@ -156,10 +167,12 @@ public class UserBean {
 		nuser.setLastName(lastName);
 		nuser.setEmail(email);
 		nuser.setMobileNumber(mobileNumber);
+		
 		if(role.equals("Host_Guest"))
 		{
 			nuser.setIsConfirmed(false);
 			nuser.setRole("Host&Guest");
+			registerMessage = "The approval of enrollment in DIAirbnb with the role of the host is pending";
 		}
 		else
 		{
@@ -167,10 +180,12 @@ public class UserBean {
 			if(role.equals("Host"))
 			{
 				nuser.setIsConfirmed(false);
+				registerMessage = "The approval of enrollment in DIAirbnb with the role of the host is pending";
 			}
 			else
 			{
 				nuser.setIsConfirmed(true);
+				registerMessage = "You can now be an active member of DIAirbnb with the role of the guest!";
 			}
 		}
 		nuser.setPhoto(null);
@@ -180,7 +195,7 @@ public class UserBean {
 
 		if (retMessage.equals("ok")) 
 		{
-			return "/index?faces-redirect=true";
+			return "/registerMessage?faces-redirect=true";
 		} 
 		else 
 		{	
@@ -211,14 +226,24 @@ public class UserBean {
 		return "/index?faces-redirect=true";
 	}
 
-	public boolean isLoggedIn() {
+	public boolean isLoggedIn() 
+	{
 		return currentUser != null;
 	}
 
-	public String register() {
+	public String register() 
+	{
 		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
 		return "registration?faces-redirect=true";
 	}
+	
+	
+	public String approveAll() 
+	{
+        UserDAO userDB = new UserDAO();
+        String retMessage = userDB.updateAllUsersConfirmation();
+        return "/restricted/audit_accounts?faces-redirect=true";
+    }
 
 
 	public void copyUser(User user)
@@ -238,7 +263,60 @@ public class UserBean {
 
 	public boolean isAdmin() 
 	{
-		return !username.equals("Admin");
+		return role.equals("Admin");
+	}
+	
+	public boolean isHost()
+	{
+		return role.equals("Host");
 	}
 
+	public boolean isGuest()
+	{
+		return role.equals("Guest");
+	}
+	
+	public boolean isHostAndGuest()
+	{
+		return role.equals("Host&Guest");
+	}
+	
+	public boolean showAuditAccounts()
+	{
+		System.out.println(isAdmin());
+		return isAdmin();
+	}
+	
+	public boolean showExportXMLData()
+	{
+		return isAdmin();
+	}
+	
+	public boolean showListings()
+	{
+		return (isHost() || isHostAndGuest() );
+	}
+	
+	public boolean showTrips()
+	{
+		return (isGuest() || isHostAndGuest() );
+	}
+	
+	public boolean showMessages()
+	{
+		return (isHost() || isGuest() || isHostAndGuest() );
+	}
+	
+	public boolean showAccountSettings()
+	{
+		return (isHost() || isGuest() || isHostAndGuest() );
+	}
+
+	
+	public String getPendingUsers() 
+	{ 
+		UserDAO userDB = new UserDAO();
+		return String.valueOf(userDB.getAllNotConfirmedHosts().size());
+	}
+	
 }
