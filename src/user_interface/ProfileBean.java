@@ -161,7 +161,7 @@ public class ProfileBean
     public String approve() 
     {
         UserDAO userDB = new UserDAO();
-        String retMessage = userDB.updateUserConfirmation(id) ;
+        String retMessage = userDB.updateUserConfirmation(username) ;
         isConfirmed = true;
         return "/restricted/user_profile?faces-redirect=true";
     }

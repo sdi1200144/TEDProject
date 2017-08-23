@@ -44,27 +44,27 @@
 					                            User List
 					                        </f:facet>
 			
-					                        <p:column headerText="Username" sortBy="#{usr.username}">
+					                        <p:column headerText="Username" >
 					                            <div align="center"> <h:outputText value="#{usr.username}" /> </div>
 					                        </p:column>
 			
-					                        <p:column headerText="Email Address" sortBy="#{usr.email}">
+					                        <p:column headerText="Email Address">
 					                            <div align="center"> <h:outputText value="#{usr.email}" /> </div>
 					                        </p:column>
 			
-					                        <p:column headerText="First Name" sortBy="#{usr.firstName}">
+					                        <p:column headerText="First Name" >
 					                            <div align="center"> <h:outputText value="#{usr.firstName}" /> </div>
 					                        </p:column>
 			
-					                        <p:column headerText="Last Name" sortBy="#{usr.lastName}">
+					                        <p:column headerText="Last Name" >
 					                           <div align="center"> <h:outputText value="#{usr.lastName}" /> </div>
 					                        </p:column>
 			
-					                        <p:column headerText="Approved" sortBy="#{usr.isConfirmed}">
+					                        <p:column headerText="Approved" >
 					                            <div align="center"> <h:outputText value="#{usr.isConfirmed}"/> </div>
 					                        </p:column>
 			
-					                        <p:column headerText="Visit Profile" >
+					                        <p:column headerText="Visit Profile">
 					                            <div align="center"> <p:commandButton icon="ui-icon-person" action="#{profile.makeProfile(usr.username)}"  style=" width: 60px"/> </div>
 					                        </p:column>    
 			                    	</p:dataTable>

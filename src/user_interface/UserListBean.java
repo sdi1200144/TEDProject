@@ -1,6 +1,8 @@
 package user_interface;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -51,6 +53,16 @@ public class UserListBean
                     uList.add(ub);
 
                 }
+                
+                Collections.sort(uList, new Comparator<UserBean>() 
+                {
+
+                    public int compare(UserBean o1, UserBean o2) 
+                    {
+                        return - Boolean.compare(o2.getIsConfirmed(),o1.getIsConfirmed());
+                    }
+                });
+                
                 userList = new ListDataModel<UserBean>(uList);
             }
         }

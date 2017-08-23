@@ -275,7 +275,7 @@ public class UserDAO
         return user;
     }
 
-    public String updateUserConfirmation(String userIdentifier) 
+    public String updateUserConfirmation(String username) 
     {
         String retMessage = "";
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("TEDProject");
@@ -283,8 +283,8 @@ public class UserDAO
         EntityTransaction tx = em.getTransaction();
         tx.begin();
 
-        Query q = em.createQuery("Update User u set u.isConfirmed = true where u.id = :userIdentifier");
-        q.setParameter("userIdentifier", userIdentifier);
+        Query q = em.createQuery("Update User u set u.isConfirmed = true where u.username = :username");
+        q.setParameter("username", username);
         q.executeUpdate();
         try 
         {
