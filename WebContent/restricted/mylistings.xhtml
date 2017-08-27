@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Ted Project</title>
+	<!--  <h:outputStylesheet name="newcss.css" library="css"/> -->
+
+
+
+
+</h:head>
+<h:body>
+	<ui:composition template="/template/layout_restricted.xhtml">
+		<ui:define name="content">
+		
+			<!-- Validation JavaScript & CSS -->
+    		<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.js" />
+    		<script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" />
+    		<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+    		
+  		<!-- 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.4.5/css/bootstrapvalidator.min.css "/>
+  			<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.4.5/js/bootstrapvalidator.min.js"/>
+  
+  			 <h:outputScript library="js" name="register_validation.js" /> -->
+  			
+			<div class="row">
+				<div class="vpadding_registration">
+				
+					
+					<div class="container">
+			
+						<h:form class="well form-horizontal" action=" " method="post"  id="userlist_form">
+				
+							
+									<p:dataTable value="#{rooms.getHostRoomList(user.username)}" var="room" scrollable="true" scrollHeight="380" >
+					                        <f:facet name="header">
+					                            My Listings
+					                        </f:facet>
+			
+					                        <p:column headerText="# Code" >
+					                            <div align="center"> <h:outputText value="#{room.id}" /> </div>
+					                        </p:column>
+			
+					                        <p:column headerText="Name">
+					                            <div align="center"> <h:outputText value="#{room.name}" /> </div>
+					                        </p:column>
+			
+					                        <p:column headerText="Address" >
+					                            <div align="center"> <h:outputText value="#{room.address}" /> </div>
+					                        </p:column>
+			
+					                        <p:column headerText="Cost Per Night (€)" >
+					                           <div align="center"> <h:outputText value="#{room.costPerNight}" /> </div>
+					                        </p:column>
+			
+					                        <p:column headerText="Average Rating Stars" >
+					                            <div align="center"> <p:rating value="#{room.averageRatingStars}" readonly="true" /> </div>
+					                        </p:column>
+			
+					                        <p:column headerText="Details">
+					                            <div align="center"> <p:commandButton icon="ui-icon-person" action="#{room.seeRoomDetails()}"  style=" width: 60px"/> </div>
+					                        </p:column>    
+			                    	</p:dataTable>
+			                    	
+			                    	<p:commandButton id="approveAll" value="Upload new home" icon="ui-icon-circle-check" action="#{room.uploadNewHome()}" style="background-color: #C5E1A5; margin-top: 20px;"/>
+			                
+						</h:form>
+			
+					</div>
+					
+				</div>
+					
+			</div>
+				
+		</ui:define>
+		
+	</ui:composition>
+
+
+</h:body>
+</html>
