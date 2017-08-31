@@ -2,15 +2,25 @@ package user_interface;
 
 import java.math.BigDecimal;
 
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.ViewScoped;
+import javax.faces.context.FacesContext;
+import javax.faces.application.FacesMessage;
+
+import org.primefaces.event.map.MarkerDragEvent;
+import org.primefaces.model.map.DefaultMapModel;
+import org.primefaces.model.map.LatLng;
+import org.primefaces.model.map.MapModel;
+import org.primefaces.model.map.Marker;
 
 import entities.Hostingroom;
 import entities.User;
 
 
 @ManagedBean(name = "room")
-@RequestScoped
+@ViewScoped
 public class HostingroomBean 
 {
 	private int id;
@@ -48,9 +58,59 @@ public class HostingroomBean
 	private User hostOwner;
 
 	private String[] selectedAmenities;
-	
+	private String[] selectedPublicTransit;
+
 	private Hostingroom currentHostingroom;
 
+	// --------------------------------------------------------------------------------------------------
+	private final MapModel draggableModel = new DefaultMapModel();
+	private Marker marker;
+
+
+	@PostConstruct
+	public void init() 
+	{
+		//draggableModel = new DefaultMapModel();
+
+		//Shared coordinates
+		LatLng coord1 = new LatLng(36.879466, 30.667648);
+
+		//Draggable
+		draggableModel.addOverlay(new Marker(coord1, "Your new home"));
+
+		for(Marker premarker : draggableModel.getMarkers()) 
+		{
+			premarker.setDraggable(true);
+		}
+	}
+
+	public MapModel getDraggableModel() 
+	{
+		return draggableModel;
+	}
+
+//	public void onMarkerDrag(MarkerDragEvent event) 
+//	{
+//		marker = event.getMarker();
+//		System.out.println(marker.getLatlng().getLat());
+//		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Marker Dragged", "Lat:" + marker.getLatlng().getLat() + ", Lng:" + marker.getLatlng().getLng()));
+//	}
+	
+	
+	public void onMarkerDrag(MarkerDragEvent event) 
+	{  
+	    Marker marker = event.getMarker();  
+
+	    if (draggableModel.getMarkers().size() > 0) 
+	    {
+	    	draggableModel.getMarkers().get(0).setLatlng(marker.getLatlng());
+	        System.out.println("Updated marker location: " + "Lat:" + marker.getLatlng().getLat() + ", Lng:" + marker.getLatlng().getLng());
+	    }
+	  
+	    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Marker Dragged", "Lat:" + marker.getLatlng().getLat() + ", Lng:" + marker.getLatlng().getLng()));  
+	}
+	
+	// -----------------------------------------------------------------------------------------------------------------------
 
 	public int getId() {
 		return id;
@@ -415,6 +475,22 @@ public class HostingroomBean
 	 */
 	public void setSelectedAmenities(String[] selectedAmenities) {
 		this.selectedAmenities = selectedAmenities;
+	}
+
+
+	/**
+	 * @return the selectedPublicTransit
+	 */
+	public String[] getSelectedPublicTransit() {
+		return selectedPublicTransit;
+	}
+
+
+	/**
+	 * @param selectedPublicTransit the selectedPublicTransit to set
+	 */
+	public void setSelectedPublicTransit(String[] selectedPublicTransit) {
+		this.selectedPublicTransit = selectedPublicTransit;
 	}
 		
 }
