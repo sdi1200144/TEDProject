@@ -172,14 +172,14 @@
 										<span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
 										
 										
-											<h:inputText id="contact_no" name="contact_no" value="#{user.mobileNumber}" styleClass="form-control" a:placeholder="(69)"
+											<h:inputText id="mobileNumber" name="mobileNumber" value="#{user.mobileNumber}" styleClass="form-control" a:placeholder="(69)"
 											required="true" requiredMessage="Please enter your Contact number"
 								  			validatorMessage="Please enter a valid contact number">
 								  				 <f:validateLength minimum="10" maximum="10" />
 								  				 <f:validateRegex pattern="^[0-9]{10}$" />
 								  		</h:inputText>
 									</div>
-									<h:message for="contact_no" styleClass="error" />
+									<h:message for="mobileNumber" styleClass="error" />
 								  </div>
 							  </div>
 							  

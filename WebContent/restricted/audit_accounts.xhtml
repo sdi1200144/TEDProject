@@ -33,8 +33,8 @@
 			<div class="row">
 				<div class="vpadding_registration">
 				
-					
-					<div class="container">
+					<div align="center">
+					<div class="container" style=" width: 90%">
 			
 						<h:form class="well form-horizontal" action=" " method="post"  id="userlist_form">
 				
@@ -59,6 +59,10 @@
 					                        <p:column headerText="Last Name" >
 					                           <div align="center"> <h:outputText value="#{usr.lastName}" /> </div>
 					                        </p:column>
+					                        
+					                         <p:column headerText="Role" >
+					                            <div align="center"> <h:outputText value="#{usr.role}"/> </div>
+					                        </p:column>
 			
 					                        <p:column headerText="Approved" >
 					                            <div align="center"> <h:outputText value="#{usr.isConfirmed}"/> </div>
@@ -72,6 +76,7 @@
 			                    	<p:commandButton id="approveAll" value="Approve All" icon="ui-icon-circle-check" action="#{user.approveAll}" style="background-color: #C5E1A5; margin-top: 20px;"/>
 			                
 						</h:form>
+						</div>
 			
 					</div>
 					

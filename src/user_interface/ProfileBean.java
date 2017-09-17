@@ -1,8 +1,19 @@
 package user_interface;
 
 import entities.User;
+
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+
+import org.apache.cxf.helpers.IOUtils;
+import org.primefaces.event.FileUploadEvent;
+import org.primefaces.model.UploadedFile;
 
 import database.UserDAO;
 
@@ -23,6 +34,7 @@ public class ProfileBean
 	private boolean isConfirmed;
 	private User currentUser;
 
+	private UploadedFile profilePhotoFile;
    
 
 	public String getId() {
@@ -133,6 +145,26 @@ public class ProfileBean
     	
         return "/restricted/user_profile?faces-redirect=true";
     }
+    
+    public String changeProfile(String p_username) 
+    {
+    	System.out.println("changeProfile yes");
+        UserDAO userDB = new UserDAO();
+        User p = userDB.getUser(p_username);
+       
+        id = String.valueOf(p.getId());
+    	username = p.getUsername();
+    	password = p.getPassword();
+    	firstName = p.getFirstName();
+    	lastName = p.getLastName();
+    	email = p.getEmail();
+    	mobileNumber = p.getMobileNumber();
+    	role = p.getRole();
+    	photo = p.getPhoto();
+    	isConfirmed = p.getIsConfirmed();
+    	
+        return "/restricted/account_settings?faces-redirect=true";
+    }
 
     public String checkConfirm() 
     {
@@ -189,5 +221,65 @@ public class ProfileBean
 			return photo;
 		}
 	}
+    
+    
+    public String updateUserProfile() throws IOException 
+	{
+    
+		UserDAO userDB = new UserDAO();
+		
+		
+		if(profilePhotoFile!=null)
+    	{
+	        String filePath = "/resources/images/profile_photo_submissions/" + profilePhotoFile.getFileName() + ".jpg";
+	        System.out.println("filepath is "+filePath);
+	        
+	        FileOutputStream stream = new FileOutputStream(filePath);
+	        try {
+	            stream.write(profilePhotoFile.getContents());
+	        } finally {
+	            stream.close();
+	        }
+	
+	        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, profilePhotoFile.getFileName() + " is uploaded.", null);
+	        FacesContext.getCurrentInstance().addMessage(null, message);
+    	}
+		
+		
+		String retMessage = userDB.updateUser(username, password, email, mobileNumber);
+		if (retMessage.equals("ok")) 
+		{
+			return "/restricted/account_settings?faces-redirect=true";
+		} 
+		else 
+		{
+			if(userDB.hasSameEmail(email))
+			{
+				FacesContext.getCurrentInstance().addMessage("changeUser_form:email",new FacesMessage("Email is already taken"));
+				return null;
+			}
+			else
+			{
+				FacesContext.getCurrentInstance().addMessage("changeUser_form:role",new FacesMessage("Oops, something went wrong! Please try again later!"));
+				return email = null;
+			}
+		}
+	}
+    
+    
+    
+    public UploadedFile getFile() {
+        return profilePhotoFile;
+    }
+ 
+    public void setFile(UploadedFile file) {
+        this.profilePhotoFile = file;
+    }
+     
+    public void upload(FileUploadEvent event) throws FileNotFoundException, IOException, InterruptedException 
+    {
+    	
+
+    }
 
 }

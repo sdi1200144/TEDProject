@@ -19,7 +19,7 @@
 							class="icon-bar"></span>
 					</button>
 					<h:outputText value="&lt;br/&gt;" escape="false" />
-					<a class="navbar-brand" href="#">DIAirbnb</a>
+					<a class="navbar-brand" href="index_restricted.xhtml">DIAirbnb</a>
 				</h:panelGroup>
 				<!-- 				<div class="navbar-collapse collapse" >
 					<ul class="nav navbar-nav navbar-right">
@@ -91,7 +91,7 @@
 						
 						<h:panelGroup rendered="#{user.showAccountSettings()}"><li>
 						<h:outputText value="&lt;br/&gt;" escape="false" /> 
-							<h:link	outcome="accountsettings.xhtml" >
+							<h:link	outcome="#{profile.changeProfile(user.username)}" >
 							<h:panelGroup styleClass="glyphicon glyphicon-cog"></h:panelGroup>
 								Account Settings
 							</h:link>

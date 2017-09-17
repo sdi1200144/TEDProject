@@ -19,30 +19,34 @@
 <h:body>
 	<ui:composition template="/template/layout_restricted.xhtml">
 		<ui:define name="content">
-		
+
 			<!-- Validation JavaScript & CSS -->
-    		<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.js" />
-    		<script type="text/javascript" src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" />
-    		<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
-    		
-  		<!-- 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.4.5/css/bootstrapvalidator.min.css "/>
+			<script type="text/javascript"
+				src="https://code.jquery.com/jquery-1.12.4.js" />
+			<script type="text/javascript"
+				src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" />
+			<link rel="stylesheet"
+				href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+
+			<!-- 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.4.5/css/bootstrapvalidator.min.css "/>
   			<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.4.5/js/bootstrapvalidator.min.js"/>
   
   			 <h:outputScript library="js" name="register_validation.js" /> -->
-  			
+
 			<div class="row">
 				<div class="vpadding_registration">
-				
-					
+
+
 					<div class="container">
-			
-						<h:form class="well form-horizontal" action=" " method="post"  id="userprofile_form">
-						<fieldset>
-								 
-								 
-								 		<h:graphicImage value="#{profile.getUserProfilePhoto()}" style="display: inline"/>
-								 
-										 <div style="display: inline"><p:panelGrid columns="2" style="float:center">
+
+						<h:form class="well form-horizontal" action=" " method="post"
+							id="userprofile_form">
+							<fieldset>
+
+
+								<!-- <h:graphicImage value="#{profile.getUserProfilePhoto()}" style="display: inline"/> -->
+
+								<!-- 										 <div style="display: inline"><p:panelGrid columns="2" style="float:center">
 		                        				<f:facet name="header">
 		                            					User Profile
 		                        				</f:facet>
@@ -53,30 +57,62 @@
 						                        Email Address: <h:outputText id="email" value="#{profile.email}" /> 
 						                        Mobile Number: <h:outputText id="mobileNumber" value="#{profile.mobileNumber}" /> 
 						                        Role: <h:outputText id="role" value="#{profile.role}" />
-		                    			</p:panelGrid> </div>
-								
-								
-								<div align="center"> <p:commandButton value="#{profile.checkConfirm()}" icon="#{profile.iconConfirm()}" action="#{profile.approve()}" disabled="#{profile.isConfirmed}" ajax="true" style="margin:5px 5px 0 97px "/></div>
-                
-								<p:commandButton icon="ui-icon-arrowthick-1-w" value="Go Back" action="#{profile.goBack(user.role)}" immediate="true" style="margin:5px 5px 0 67px "/>
-						
-                    			
-             			
-						</fieldset>
+		                    			</p:panelGrid> </div> -->
+
+								<p:panelGrid columns="2" style="margin: 0 auto;">
+									<f:facet name="header">
+										<h:graphicImage value="#{profile.getUserProfilePhoto()}" />
+									</f:facet>
+									<h:outputText value="Username:" />
+									<h:outputText id="userName" value="#{profile.username}" />
+
+									<h:outputText value="Password:" />
+									<h:outputText id="password" value="#{profile.password}" />
+
+									<h:outputText value="First Name:" />
+									<h:outputText id="firstName" value="#{profile.firstName}" />
+
+									<h:outputText value="Last Name:" />
+									<h:outputText id="lastName" value="#{profile.lastName}" />
+
+									<h:outputText value="Email Address:" />
+									<h:outputText id="email" value="#{profile.email}" />
+
+									<h:outputText value="Mobile Number:" />
+									<h:outputText id="mobileNumber" value="#{profile.mobileNumber}" />
+
+									<h:outputText value="Role:" />
+									<h:outputText id="role" value="#{profile.role}" />
+								</p:panelGrid>
+
+								<h:outputText value="&lt;br/&gt;" escape="false" />
+
+
+
+								<h:panelGroup layout="block" style="text-align:center"> <p:commandButton value="#{profile.checkConfirm()}" icon="#{profile.iconConfirm()}" action="#{profile.approve()}" disabled="#{profile.isConfirmed}" ajax="true" style="background-color: #C5E1A5;"/></h:panelGroup>
+                 
+			
+								<p:commandButton style="float: left;"
+									icon="ui-icon-arrowthick-1-w" value="Go Back"
+									action="#{profile.goBack(user.role)}" immediate="true" />
+
+
+
+							</fieldset>
 						</h:form>
-						
-							
-						
+
+
+
 					</div>
-					
-					
-					
+
+
+
 				</div>
-					
+
 			</div>
-				
+
 		</ui:define>
-		
+
 	</ui:composition>
 
 

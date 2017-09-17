@@ -2,6 +2,7 @@ package user_interface;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
@@ -126,10 +127,8 @@ public class UserBean {
 	public String login() 
 	{
 		UserDAO userDB = new UserDAO();
-		System.out.println(username);
-		System.out.println(password);
 		currentUser = userDB.findUser(username, password);
-
+		
 		if (currentUser == null) {
 			FacesContext.getCurrentInstance().addMessage("loginFormId:username",new FacesMessage("Username or password incorrect"));
 			return (username = password = null);
@@ -156,7 +155,6 @@ public class UserBean {
 
 	public String insertUser() 
 	{
-		System.out.println("In insert user!!");
 		UserDAO userDB = new UserDAO();
 		User nuser = new User();
 
@@ -283,6 +281,7 @@ public class UserBean {
 	
 	public boolean showAuditAccounts()
 	{
+		System.out.println("showAuditAccounts() is called");
 		System.out.println(isAdmin());
 		return isAdmin();
 	}
@@ -318,5 +317,5 @@ public class UserBean {
 		UserDAO userDB = new UserDAO();
 		return String.valueOf(userDB.getAllNotConfirmedHosts().size());
 	}
-	
+
 }

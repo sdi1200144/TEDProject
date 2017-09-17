@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Ted Project</title>
+	<!--  <h:outputStylesheet name="newcss.css" library="css"/> -->
+
+
+
+
+</h:head>
+<h:body>
+	<ui:composition template="/template/layout_restricted.xhtml">
+		<ui:define name="content">
+
+			<!-- Validation JavaScript & CSS -->
+			<script type="text/javascript"
+				src="https://code.jquery.com/jquery-1.12.4.js" />
+			<script type="text/javascript"
+				src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" />
+			<link rel="stylesheet"
+				href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+
+			<!-- 	<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.4.5/css/bootstrapvalidator.min.css "/>
+  			<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-validator/0.4.5/js/bootstrapvalidator.min.js"/>
+  
+  			 <h:outputScript library="js" name="register_validation.js" /> -->
+
+			<div class="row">
+				<div class="vpadding_registration">
+
+
+					<div class="container">
+
+						<h:form class="well form-horizontal" action=" " method="post"
+							id="changeUser_form">
+							<fieldset>
+
+								<!-- User Details -->
+
+								<div class="form-group center_text">
+									<h2>
+										<b>Account Settings</b>
+									</h2>
+								</div>
+								
+								 <div class="center_text"> 
+								  	<h:graphicImage value="#{profile.getUserProfilePhoto()}" style="display: inline"/> 
+								 </div>
+								 
+								 <h:outputText value="&lt;br/&gt;" escape="false" />
+
+								<div class="form-group">
+									<label class="col-md-4 control-label">Username</label>
+									<div class="col-md-4 inputGroupContainer">
+										<div class="input-group">
+											<span class="input-group-addon"><i
+												class="glyphicon glyphicon-user"></i></span>
+											<h:outputText id="username" name="username"
+												value="#{profile.username}" styleClass="form-control">
+											</h:outputText>
+										</div>
+									</div>
+								</div>
+
+
+
+
+								<!-- Text input-->
+								<div class="form-group">
+									<label class="col-md-4 control-label">Change Password</label>
+									<div class="col-md-4 inputGroupContainer">
+										<div class="input-group">
+											<span class="input-group-addon"><i
+												class="glyphicon glyphicon-lock"></i></span>
+
+
+											<h:inputSecret id="password" name="password" 
+												value="#{profile.password}" styleClass="form-control"
+												a:placeholder="Password"
+												required = "true" redisplay="true"
+												binding="#{passwordComponent}"
+												validatorMessage="The password must be more than 8 characters long and can only consist of alphabetical, number, dot and underscore">
+												
+												<f:validateLength minimum="8" />
+												<f:validateRegex pattern="^[a-zA-Z0-9_\.]+$" />
+												
+											</h:inputSecret>
+										</div>
+										<h:message for="password" styleClass="error" />
+									</div>
+								</div>
+
+								<!-- Text input-->
+								<div class="form-group">
+									<label class="col-md-4 control-label">Confirm Password</label>
+									<div class="col-md-4 inputGroupContainer">
+										<div class="input-group">
+											<span class="input-group-addon"><i
+												class="glyphicon glyphicon-lock"></i></span>
+											<h:inputSecret id="confirm" name="confirm_password"
+												styleClass="form-control" required = "true" redisplay="true"
+												a:placeholder="Confirm Password"
+												requiredMessage="Please confirm your password">
+												
+												<f:validator validatorId="confirmPasswordValidator" />						 
+												<f:attribute name="passwordComponent"
+													value="#{passwordComponent}" />
+											</h:inputSecret>
+										</div>
+										<h:message for="confirm" styleClass="error" />
+									</div>
+								</div>
+
+
+								<div class="form-group">
+									<label class="col-md-4 control-label">First Name</label>
+									<div class="col-md-4 inputGroupContainer">
+										<div class="input-group">
+											<span class="input-group-addon"><i
+												class="glyphicon glyphicon-user"></i></span>
+											<h:outputText id="firstname" name="firstname"
+												value="#{profile.firstName}" styleClass="form-control">
+											</h:outputText>
+										</div>
+									</div>
+								</div>
+
+
+								<div class="form-group">
+									<label class="col-md-4 control-label">Last Name</label>
+									<div class="col-md-4 inputGroupContainer">
+										<div class="input-group">
+											<span class="input-group-addon"><i
+												class="glyphicon glyphicon-user"></i></span>
+											<h:outputText id="lastname" name="lastname"
+												value="#{profile.lastName}" styleClass="form-control">
+											</h:outputText>
+										</div>
+									</div>
+								</div>
+
+							<!-- Text input-->
+							   <div class="form-group">
+								  <label class="col-md-4 control-label">Change E-Mail Address</label>  
+									<div class="col-md-4 inputGroupContainer">
+									<div class="input-group">
+										<span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+										
+										
+											<h:inputText id="email" name="email" value="#{profile.email}" styleClass="form-control" a:placeholder="E-Mail Address"
+												required="true" requiredMessage="Please enter your Email address"
+								  				validatorMessage="Please enter a valid Email Address">
+								  				 <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+								  			</h:inputText>
+									</div>
+									<h:message for="email" styleClass="error" />
+								  </div>
+							  </div>
+
+
+
+							  <!-- Text input-->
+							  <div class="form-group">
+								  <label class="col-md-4 control-label">Change Contact Number</label>  
+									<div class="col-md-4 inputGroupContainer">
+									<div class="input-group">
+										<span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
+										
+										
+											<h:inputText id="mobileNumber" name="mobileNumber" value="#{profile.mobileNumber}" styleClass="form-control" a:placeholder="(69)"
+											required="true" requiredMessage="Please enter your Contact number"
+								  			validatorMessage="Please enter a valid contact number">
+								  				 <f:validateLength minimum="10" maximum="10" />
+								  				 <f:validateRegex pattern="^[0-9]{10}$" />
+								  		</h:inputText>
+									</div>
+									<h:message for="mobileNumber" styleClass="error" />
+								  </div>
+							  </div>
+								
+								<div class="form-group">
+									<label class="col-md-4 control-label">Role in DIAirbnb</label>
+									<div class="col-md-4 selectContainer">
+										<div class="input-group">
+											<span class="input-group-addon"><i
+												class="glyphicon glyphicon-list"></i></span>
+											<h:outputText id="role" name="role"
+												class="form-control selectpicker" value="#{profile.role}" >
+											</h:outputText>
+										</div>
+										<h:message for="role" styleClass="error"/>
+									</div>
+								</div>
+
+								<h:outputText value="&lt;br/&gt;" escape="false" />
+								
+								<div class="form-group">
+									<label class="col-md-4 control-label">Upload profile picture</label>
+									<div class="col-md-5 selectContainer">
+									
+										
+										
+										<h:form enctype="multipart/form-data">
+    										<p:growl id="messages" showDetail="true" />
+    										
+    											
+    											<p:fileUpload fileUploadListener="#{profile.upload()}" value="#{profile.profilePhotoFile}" mode="simple" skinSimple="true"
+		                         				 update="messages" />
+ 
+    					
+										</h:form>
+								
+									</div>
+								</div>
+								
+								
+								<div style="width:60%; ">
+								
+								</div>
+								
+								
+								<h:outputText value="&lt;br/&gt;" escape="false" />
+
+
+								<!-- Save button-->
+								<div class="form-group last center_text">
+									
+									<h:commandLink action="#{profile.updateUserProfile() }" styleClass="btn btn-primary">
+	    										<i class="glyphicon glyphicon-ok"></i> Save changes
+									</h:commandLink>
+									
+								</div>
+								
+								
+                
+								<p:commandButton icon="ui-icon-arrowthick-1-w" 
+								value="Go Back" action="#{profile.goBack(user.role)}" 
+								immediate="true" style="margin:5px 5px 0 67px "/> 
+
+
+							</fieldset>
+						</h:form>
+
+
+
+					</div>
+
+
+
+				</div>
+
+			</div>
+
+		</ui:define>
+
+	</ui:composition>
+
+
+</h:body>
+</html>

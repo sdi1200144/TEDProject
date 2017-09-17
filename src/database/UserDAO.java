@@ -153,6 +153,35 @@ public class UserDAO
         return user;
     }
     
+    public boolean hasSameEmail(String email)
+    {
+    	System.out.println("eMAIL TO BE TESTED IS "+email);
+    	User user = null;
+
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("TEDProject");
+        EntityManager em = emf.createEntityManager();
+
+        EntityTransaction tx = em.getTransaction();
+        tx.begin();
+
+        Query q = em.createQuery("Select u from User u where u.email = :email");
+        q.setParameter("email", email);
+        List users = q.getResultList();
+        tx.commit();
+        em.close();
+
+        if (users != null && users.size() >= 1) 
+        {
+            return true;
+        } 
+        else 
+        {
+        	return false;
+        }
+    }
+    
+   
+    
     public String hasSameUsername_Email_MobilePhone(String username , String email , String mobileNumber)
     {
     	User user = null;
@@ -337,5 +366,44 @@ public class UserDAO
         {
             em.close();
         }
+    }
+    
+    
+    public String updateUser(String username, String password, String email, String mobileNumber) 
+    {
+    	String retMessage = "";
+    	EntityManagerFactory emf = Persistence.createEntityManagerFactory("TEDProject");
+    	EntityManager em = emf.createEntityManager();
+    	EntityTransaction tx = em.getTransaction();
+    	tx.begin();
+
+    	Query q = em.createQuery("Update User u set u.password = :password, u.email = :email, u.mobileNumber = :mobileNumber where u.username = :username"); 
+    	q.setParameter("username", username);
+    	q.setParameter("password", password);
+    	q.setParameter("email", email);
+    	q.setParameter("mobileNumber", mobileNumber);
+
+    	try 
+    	{
+    		q.executeUpdate(); //TODO inside try cause it may fail, correct?
+
+
+    		tx.commit();
+    		retMessage = "ok";
+    		return retMessage;
+    	} 
+    	catch (PersistenceException e) 
+    	{
+    		if (tx.isActive()) 
+    		{
+    			tx.rollback();
+    		}
+    		retMessage = e.getMessage();
+    		return retMessage;
+    	} 
+    	finally 
+    	{
+    		em.close();
+    	}
     }
 }
