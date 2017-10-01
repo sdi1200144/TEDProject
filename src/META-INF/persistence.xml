@@ -9,6 +9,7 @@
 		<class>entities.Roomphoto</class>
 		<class>entities.Searchhistory</class>
 		<class>entities.User</class>	
+		<class>entities.Recommendations</class>
 		<properties>
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/TedDB"/>
 			<property name="javax.persistence.jdbc.user" value="root"/>

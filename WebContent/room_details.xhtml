@@ -1,0 +1,476 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Ted Project</title>
+	<h:outputStylesheet name="newcss.css" library="css" />
+
+	<script
+		src="https://maps.google.com/maps/api/js?key=AIzaSyB4UYv9C0KPPVyjRVwraejYFqrnL7tr9AU"
+		type="text/javascript"></script>
+
+</h:head>
+<h:body>
+	<ui:composition template="/template/layout.xhtml">
+		<ui:define name="content">
+
+			<!-- Validation JavaScript & CSS -->
+			<script type="text/javascript"
+				src="https://code.jquery.com/jquery-1.12.4.js" />
+			<script type="text/javascript"
+				src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" />
+			<script
+				src="https://maps.google.com/maps/api/js?key=AIzaSyB4UYv9C0KPPVyjRVwraejYFqrnL7tr9AU"
+				type="text/javascript"></script>
+
+			<link rel="stylesheet"
+				href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+
+
+			<div class="row">
+				<div class="vpadding_registration" rendered="#{user.role != 'Host'}">
+
+
+					<div class="container">
+
+						<h:form class="well form-horizontal register_form" method="post"
+							id="results_form" rendered="#{user.role != 'Host'}">
+
+							<p:growl autoUpdate="true" />
+
+							<div class="form-group center_text">
+								<h2>
+									<b>Room Details</b>
+								</h2>
+							</div>
+							
+							<div class="form-group center_text">
+								<h:graphicImage value="#{rooms.searchRoomDetails().getFrontPhoto()}" width="190" height="130" style="display: inline"/> 
+            					<h:outputText value="&lt;br/&gt;" escape="false" />
+            				</div>
+
+							<div class="form-group">
+								<label class="col-md-6 control-label"><h4>Place</h4></label>
+							</div>
+
+							<div class="form-group">
+								<label class="col-md-5 control-label">Number of beds</label>
+								<div class="col-md-4 selectContainer">
+									<div class="input-group">
+										<span class="input-group-addon"><i
+											class="glyphicon glyphicon-bed"></i></span>
+										<h:outputText
+											value="#{rooms.searchRoomDetails().getBedsNumber()}"
+											styleClass="form-control">
+										</h:outputText>
+									</div>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-md-5 control-label">Number of
+									bathrooms</label>
+								<div class="col-md-4 selectContainer">
+									<div class="input-group">
+										<span class="input-group-addon"><i
+											class="glyphicon glyphicon-tint"></i></span>
+										<h:outputText
+											value="#{rooms.searchRoomDetails().getBathroomsNumber()}"
+											styleClass="form-control">
+										</h:outputText>
+									</div>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-md-5 control-label">Room Type</label>
+								<div class="col-md-4 selectContainer">
+									<div class="input-group">
+										<span class="input-group-addon"><i
+											class="glyphicon glyphicon-list"></i></span>
+										<h:outputText
+											value="#{rooms.searchRoomDetails().getRoomType()}"
+											styleClass="form-control">
+										</h:outputText>
+									</div>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-md-5 control-label">Number of bedrooms</label>
+								<div class="col-md-4 selectContainer">
+									<div class="input-group">
+										<span class="input-group-addon"><i
+											class="glyphicon glyphicon-bed"></i></span>
+										<h:outputText
+											value="#{rooms.searchRoomDetails().getBedroomsNumber()}"
+											styleClass="form-control">
+										</h:outputText>
+									</div>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-md-5 control-label">Number of living
+									rooms</label>
+								<div class="col-md-4 selectContainer">
+									<div class="input-group">
+										<span class="input-group-addon"><i
+											class="glyphicon glyphicon-bed"></i></span>
+										<h:outputText
+											value="#{rooms.searchRoomDetails().getLivingRoomNumber()}"
+											styleClass="form-control">
+										</h:outputText>
+									</div>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-md-5 control-label">Area</label>
+								<div class="col-md-4 inputGroupContainer">
+									<div class="input-group">
+										<span class="input-group-addon"><i
+											class="glyphicon glyphicon-unchecked"></i></span>
+										<h:outputText value="#{rooms.searchRoomDetails().getArea()}"
+											styleClass="form-control">
+										</h:outputText>
+									</div>
+
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-md-6 control-label"><h4>Description</h4></label>
+							</div>
+
+							<div class="form-group">
+								<label class="col-md-3 control-label"></label>
+								<div class="col-md-6 inputGroupContainer">
+									<div class="input-group">
+										<span class="input-group-addon"><i
+											class="glyphicon glyphicon-comment"></i></span>
+										<h:outputText
+											value="#{rooms.searchRoomDetails().getDescription()}"
+											styleClass="form-control">
+										</h:outputText>
+									</div>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-md-6 control-label"><h4>HouseRules</h4></label>
+							</div>
+
+
+							<div class="form-group">
+								<label class="col-md-5 control-label">Smoking Allowed</label>
+								<div class="col-md-6 inputGroupContainer">
+									<div class="input-group" style="margin-top: 8px;">
+										<p:selectBooleanCheckbox
+											value="#{rooms.searchRoomDetails().getSmokingRule()}"
+											disabled="true" />
+									</div>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-md-5 control-label">Pets Allowed</label>
+								<div class="col-md-6 inputGroupContainer">
+									<div class="input-group" style="margin-top: 8px;">
+										<p:selectBooleanCheckbox
+											value="#{rooms.searchRoomDetails().getPetsRule()}"
+											disabled="true" />
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-5 control-label">Events Allowed</label>
+								<div class="col-md-6 inputGroupContainer">
+									<div class="input-group" style="margin-top: 8px;">
+										<p:selectBooleanCheckbox
+											value="#{rooms.searchRoomDetails().getEventsRule()}"
+											disabled="true" />
+									</div>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-md-5 control-label">Cost per night</label>
+								<div class="col-md-4 inputGroupContainer">
+									<div class="input-group">
+										<span class="input-group-addon"><i
+											class="glyphicon glyphicon-euro"></i></span>
+										<h:outputText
+											value="#{rooms.searchRoomDetails().getCostPerNight()}"
+											styleClass="form-control">
+										</h:outputText>
+									</div>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-md-5 control-label">Minimum hosting
+									days</label>
+								<div class="col-md-4 inputGroupContainer">
+									<div class="input-group">
+										<span class="input-group-addon"><i
+											class="glyphicon glyphicon-calendar"></i></span>
+										<h:outputText
+											value="#{rooms.searchRoomDetails().getMinHostingDays()}"
+											styleClass="form-control">
+										</h:outputText>
+									</div>
+								</div>
+							</div>
+
+
+							<div class="form-group">
+								<label class="col-md-6 control-label"><h4>Available
+										amenities</h4></label>
+							</div>
+
+							<div class="form-group">
+								<label class="col-md-5 control-label">WiFi</label>
+								<div class="col-md-6 inputGroupContainer">
+									<div class="input-group" style="margin-top: 8px;">
+										<p:selectBooleanCheckbox
+											value="#{rooms.searchRoomDetails().getWifiAmenity()}"
+											disabled="true" />
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-5 control-label">Cooling</label>
+								<div class="col-md-6 inputGroupContainer">
+									<div class="input-group" style="margin-top: 8px;">
+										<p:selectBooleanCheckbox
+											value="#{rooms.searchRoomDetails().getCoolingAmenity()}"
+											disabled="true" />
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-5 control-label">Heating</label>
+								<div class="col-md-6 inputGroupContainer">
+									<div class="input-group" style="margin-top: 8px;">
+										<p:selectBooleanCheckbox
+											value="#{rooms.searchRoomDetails().getHeatingAmenity()}"
+											disabled="true" />
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-5 control-label">Kitchen</label>
+								<div class="col-md-6 inputGroupContainer">
+									<div class="input-group" style="margin-top: 8px;">
+										<p:selectBooleanCheckbox
+											value="#{rooms.searchRoomDetails().getKitchenAmenity()}"
+											disabled="true" />
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-5 control-label">TV</label>
+								<div class="col-md-6 inputGroupContainer">
+									<div class="input-group" style="margin-top: 8px;">
+										<p:selectBooleanCheckbox
+											value="#{rooms.searchRoomDetails().getTVAmenity()}"
+											disabled="true" />
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-5 control-label">Parking</label>
+								<div class="col-md-6 inputGroupContainer">
+									<div class="input-group" style="margin-top: 8px;">
+										<p:selectBooleanCheckbox
+											value="#{rooms.searchRoomDetails().getParkingAmenity()}"
+											disabled="true" />
+									</div>
+								</div>
+							</div>
+							<div class="form-group">
+								<label class="col-md-5 control-label">Elevator</label>
+								<div class="col-md-6 inputGroupContainer">
+									<div class="input-group" style="margin-top: 8px;">
+										<p:selectBooleanCheckbox
+											value="#{rooms.searchRoomDetails().getElevatorAmenity()}"
+											disabled="true" />
+									</div>
+								</div>
+							</div>
+
+
+
+
+
+							<div class="form-group">
+								<label class="col-md-6 control-label"><h4>Location</h4></label>
+							</div>
+
+
+
+							<div class="form-group">
+								<label class="col-md-5 control-label">Address</label>
+								<div class="col-md-4 inputGroupContainer">
+									<div class="input-group">
+										<span class="input-group-addon"><i
+											class="glyphicon glyphicon-globe"></i></span>
+										<h:outputText
+											value="#{rooms.searchRoomDetails().getAddress()}"
+											styleClass="form-control">
+										</h:outputText>
+									</div>
+								</div>
+							</div>
+
+
+							<div class="form-group">
+								<label class="col-md-5 control-label">Neighborhood</label>
+								<div class="col-md-4 inputGroupContainer">
+									<div class="input-group">
+										<span class="input-group-addon"><i
+											class="glyphicon glyphicon-globe"></i></span>
+										<h:outputText
+											value="#{rooms.searchRoomDetails().getNeighborhood()}"
+											styleClass="form-control">
+										</h:outputText>
+									</div>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-md-5 control-label">Available public
+									transit</label>
+								<div class="col-md-4 inputGroupContainer">
+									<div class="input-group">
+										<span class="input-group-addon"><i
+											class="glyphicon glyphicon-road"></i></span>
+										<h:outputText
+											value="#{rooms.searchRoomDetails().getPublicTransit()}"
+											styleClass="form-control">
+										</h:outputText>
+
+									</div>
+								</div>
+							</div>
+
+
+							<div class="form-group">
+								<label class="col-md-5 control-label">Latitude</label>
+								<div class="col-md-4 inputGroupContainer">
+									<div class="input-group">
+										<span class="input-group-addon"><i
+											class="glyphicon glyphicon-map-marker"></i></span>
+										<h:outputText
+											value="#{rooms.searchRoomDetails().getLatitude()}"
+											styleClass="form-control">
+										</h:outputText>
+									</div>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<label class="col-md-5 control-label">Longitude</label>
+								<div class="col-md-4 inputGroupContainer">
+									<div class="input-group">
+										<span class="input-group-addon"><i
+											class="glyphicon glyphicon-map-marker"></i></span>
+										<h:outputText
+											value="#{rooms.searchRoomDetails().getLongitude()}"
+											styleClass="form-control">
+										</h:outputText>
+									</div>
+								</div>
+							</div>
+
+							<!--  <div class="form-group">
+								<label class="col-md-4 control-label"></label>
+								<div class="col-md-4 inputGroupContainer">
+
+									<f:view contentType="text/html">
+										<p:growl id="growl" showDetail="true" />
+										<p:gmap id="gmap" center="36.890257,30.707417" zoom="13"
+											type="HYBRID" model="#{room.draggableModel}"
+											style="width:100%;height:400px">
+											<p:ajax event="markerDrag" listener="#{room.onMarkerDrag}"
+												update="growl" />
+										</p:gmap>
+
+
+										<p:gmap center="rooms.searchRoomDetails().getLatitude(), #{rooms.searchRoomDetails().getLongitude()}" zoom="13" type="HYBRID" style="width:100%;height:400px" model="#{markersView.simpleModel}" />
+									</f:view>
+								</div>
+							</div>  -->
+							
+						<!-- 	<div class="form-group">
+								<label class="col-md-4 control-label"></label>
+								<div class="col-md-4 inputGroupContainer">
+
+									<f:view contentType="text/html">
+										<p:growl id="growl" showDetail="true" />
+										<p:gmap id="gmap" zoom="13"
+											type="HYBRID" model="#{rooms.searchRoomDetails().getSimpleModel()}"
+											style="width:100%;height:400px">
+											<p:ajax event="markerDrag" listener="#{room.onMarkerDrag}"
+												 render="roomlatitude roomlongitude" />
+										</p:gmap>
+									</f:view>
+								</div>
+							</div> -->
+
+							<div class="form-group">
+								<label class="col-md-6 control-label"><h4>The Host</h4></label>
+							</div>
+
+							<div class="form-group">
+								<label class="col-md-5 control-label">Average Rating</label>
+								<div class="col-md-4 inputGroupContainer">
+									<div class="input-group" style="margin-top: 8px;">
+										<h:outputText
+											value="#{rooms.searchRoomDetails().getAverageRatingStars()}" 
+											readonly="true" />
+									</div>
+								</div>
+							</div>
+
+							<div class="form-group ">
+								<div class="col-md-6 text-right">
+									<h:commandLink value="Contact Host"
+										action="#{message.findUsers(users.findUserFromId(user.getId()), rooms.searchRoomDetails().getUser())}" styleClass="btn btn-default" rendered="#{user.currentUser != null}">
+										<i class="glyphicon glyphicon-envelope"></i>
+									</h:commandLink>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<div class="col-md-6 text-right" style="margin-top: 15px;">
+									<h:commandLink value="Book now!" action="#{room.insertBooking(rooms.searchRoomDetails(), users.findUserFromId(user.getId()))}"
+										styleClass="btn btn-lg btn-success" rendered="#{user.currentUser != null}">
+										<i class="glyphicon glyphicon-plane"></i>
+									</h:commandLink>
+								</div>
+							</div>
+
+						</h:form>
+
+					</div>
+
+				</div>
+
+			</div>
+
+		</ui:define>
+
+	</ui:composition>
+
+
+</h:body>
+</html>

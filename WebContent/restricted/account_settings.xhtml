@@ -17,7 +17,7 @@
 
 </h:head>
 <h:body>
-	<ui:composition template="/template/layout_restricted.xhtml">
+	<ui:composition template="/template/layout.xhtml">
 		<ui:define name="content">
 
 			<!-- Validation JavaScript & CSS -->
@@ -39,7 +39,7 @@
 
 					<div class="container">
 
-						<h:form class="well form-horizontal" action=" " method="post"
+						<h:form class="well form-horizontal" action=" " method="post" enctype="multipart/form-data"
 							id="changeUser_form">
 							<fieldset>
 
@@ -51,8 +51,9 @@
 									</h2>
 								</div>
 								
+								 
 								 <div class="center_text"> 
-								  	<h:graphicImage value="#{profile.getUserProfilePhoto()}" style="display: inline"/> 
+								  	<h:graphicImage value="#{profile.getUserProfilePhoto()}" width="230" height="230" style="display: inline"/> 
 								 </div>
 								 
 								 <h:outputText value="&lt;br/&gt;" escape="false" />
@@ -206,25 +207,14 @@
 									<label class="col-md-4 control-label">Upload profile picture</label>
 									<div class="col-md-5 selectContainer">
 									
-										
-										
-										<h:form enctype="multipart/form-data">
-    										<p:growl id="messages" showDetail="true" />
-    										
-    											
-    											<p:fileUpload fileUploadListener="#{profile.upload()}" value="#{profile.profilePhotoFile}" mode="simple" skinSimple="true"
-		                         				 update="messages" />
- 
-    					
-										</h:form>
-								
+     									<p:fileUpload mode="simple" value="#{profile.uploadedFile}" />
+   											
 									</div>
 								</div>
+								<h:message for="photo" styleClass="error" />
+								<p:messages autoUpdate="true" />
 								
 								
-								<div style="width:60%; ">
-								
-								</div>
 								
 								
 								<h:outputText value="&lt;br/&gt;" escape="false" />

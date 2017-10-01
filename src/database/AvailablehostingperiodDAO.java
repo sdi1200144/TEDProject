@@ -12,13 +12,30 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 
+import entities.Availablehostingperiod;
 import entities.Hostingroom;
 
 public class AvailablehostingperiodDAO 
 {
 	
+	public List getAllPeriods() 
+    {
+        List users = null;
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("TEDProject");
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        tx.begin();
+
+        Query q = em.createQuery("Select a from Availablehostingperiod a");
+        users = q.getResultList();
+
+        tx.commit();
+        em.close();
+        return users;
+    }
 	
 	public List getAvailableRoomsForPeriod(ArrayList<Integer> roomIdsToCheckDates, String checkInDate, String checkOutDate) throws ParseException
 	{
@@ -62,7 +79,7 @@ public class AvailablehostingperiodDAO
 		
 		
 		String sqlQuery = "Select a.hostingroom from Availablehostingperiod a where a.hostingroom.id = :roomId and ";
-		sqlQuery += " a.fromDate <= :checkInDate and a.toDate >= :checkInDate ";
+		sqlQuery += " a.fromDate <= :checkInDate and a.toDate >= :checkInDate and ";
 		sqlQuery += " a.fromDate <= :checkOutDate and a.toDate >= :checkOutDate ";
 		
 		Query q = em.createQuery(sqlQuery);
@@ -83,6 +100,36 @@ public class AvailablehostingperiodDAO
 			return null;
 		}
 		
+	}
+	
+	
+	public String insertNewAvailableHostingPeriod(Availablehostingperiod availablehostingperiod) 
+	{
+		String retMessage = "";
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("TEDProject");
+		EntityManager em = emf.createEntityManager();
+		EntityTransaction tx = em.getTransaction();
+		tx.begin();
+		try 
+		{
+			em.persist(availablehostingperiod);
+			tx.commit();
+			retMessage = "ok";
+			return retMessage;
+		} 
+		catch (PersistenceException e) 
+		{
+			if (tx.isActive()) 
+			{
+				tx.rollback();
+			}
+			retMessage = e.getMessage();
+			return retMessage;
+		} 
+		finally 
+		{
+			em.close();
+		}
 	}
 	
 

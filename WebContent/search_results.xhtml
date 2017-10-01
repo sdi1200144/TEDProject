@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Ted Project</title>
+	<link
+		href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css"
+		rel="stylesheet" />
+	<link
+		href="http://fonts.googleapis.com/css?family=Abel|Open+Sans:400,600"
+		rel="stylesheet" />
+	<link rel="shortcut icon" type="image/x-icon" href="#{resource['images/favicon.ico']}" />
+
+</h:head>
+<h:body>
+
+	<ui:composition template="/template/layout.xhtml">
+		<ui:define name="content">
+
+     		<h:panelGroup layout="block" styleClass="content-padding">
+     		<h:panelGroup layout="block"
+					styleClass="vpadding container semitransparent ">
+					<h:form id="filter">
+					
+					<h:panelGroup layout="block" class="col-md-12" style="margin-bottom: 20px; margin-top: 10px;">
+					<h:panelGroup layout="block" class=" col-md-3">
+					<p:outputLabel value="Room type:" /><!--  for="dd"  -->
+					<br/>
+					<!-- <p:autoComplete id="dd" dropdown="true" value="#{room.roomType}" completeMethod="#{autoCompleteView.completeText}" /> -->
+													<h:selectOneMenu id="roomType" name="roomType" class="form-control selectpicker" value="#{room.roomType}" a:placeholder="Select a room">
+													<f:selectItem itemValue="" itemLabel="All" />
+   									<f:selectItem itemValue="Entire Room/Apartment" itemLabel="Entire Room/Apartment" />
+   									<f:selectItem itemValue="Shared Room" itemLabel="Shared Room" />
+   									<f:selectItem itemValue="Private Room" itemLabel="Private Room" />
+								</h:selectOneMenu>
+					</h:panelGroup>
+					
+					<h:panelGroup layout="block" class="col col-md-3" style="width: 230px;">
+					<h:outputLabel value="Max Price (€) " />
+					<br/>
+					<p:inputText id="txt1" value="#{room.costPerNight}" />
+					<!-- <p:slider for="txt1" /> -->
+					
+					</h:panelGroup>
+					
+						<h:panelGroup layout="block" class=" col-md-6" style="margin-top: 25px">
+						
+						<p:selectBooleanCheckbox value="#{room.wifiAmenity}" />
+						<h:outputLabel value="WiFi" style="margin-right: 6px;"/>
+						
+						<p:selectBooleanCheckbox value="#{room.coolingAmenity}" />
+						<h:outputLabel value="Air-Condition" style="margin-right: 6px;"/>
+						
+						
+						<p:selectBooleanCheckbox value="#{room.heatingAmenity}" />
+						<h:outputLabel value="Heat" style="margin-right: 6px;"/>
+						
+						
+						<p:selectBooleanCheckbox value="#{room.kitchenAmenity}" />
+						<h:outputLabel value="Kitchen" style="margin-right: 6px;"/>
+						
+						
+						<p:selectBooleanCheckbox value="#{room.TVAmenity}" />
+						<h:outputLabel value="TV" style="margin-right: 6px;"/>
+						
+						<p:selectBooleanCheckbox value="#{room.parkingAmenity}" />
+						<h:outputLabel value="Parking" style="margin-right: 6px;"/>
+						
+						<p:selectBooleanCheckbox value="#{room.elevatorAmenity}" />
+						<h:outputLabel value="Elevator" style="margin-right: 6px;"/>		
+						
+								<h:commandLink action="#{room.search()}" styleClass="btn btn-primary">
+    										<i class="glyphicon glyphicon-search"></i>
+								</h:commandLink>
+								
+							</h:panelGroup>
+						
+					</h:panelGroup>
+					
+					
+					</h:form>
+					
+					
+			
+			<h:form id="results_form">
+    <p:dataGrid var="roomSearched" value="#{rooms.getSearchRoomList(room.roomPlace, room.guestsChosen, room.checkInChosen, room.checkOutChosen, room.roomType, room.minCost ,room.costPerNight , room.wifiAmenity, room.coolingAmenity, room.heatingAmenity, room.kitchenAmenity, room.TVAmenity, room.parkingAmenity, room.elevatorAmenity)}" columns="2" layout="grid"
+        rows="10" paginator="true" id="roomsList"
+        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+        rowsPerPageTemplate="10">
+ 
+        <f:facet name="header">
+           Search Results
+        </f:facet>
+ 
+        <p:panel header="#{roomSearched.neighborhood}" style="text-align:center">
+            <h:panelGrid columns="1" style="width:100%">
+            	<h:graphicImage value="#{roomSearched.frontPhoto}" width="190" height="130" style="display: inline"/> 
+            	<h:outputText value="&lt;br/&gt;" escape="false" />
+                <!-- <p:graphicImage name="#{roomSearched.frontPhoto}"/> --> <!-- demo/images/car/#{car.brand}.gif -->
+ 
+ <h:outputText value="Cost Per Night" />
+                <h:outputLabel value="#{roomSearched.costPerNight} €" />
+                <h:outputText value="Room Type" />
+                 <h:outputLabel value="#{roomSearched.roomType}" />
+                 <h:outputText value="Beds Number" />
+                  <h:outputLabel value="#{roomSearched.bedsNumber}" />
+                  <h:outputText value="Reviews Number" />
+                  <h:outputLabel value="#{roomSearched.reviewsNum}" />
+                    <h:outputText value="Average Rating" />
+                    <!-- <h:outputLabel value="#{roomSearched.averageRatingStars}" />
+                   <h:outputLabel value="#{roomSearched.averageRatingStars}" /> -->
+                <p:rating value="#{roomSearched.int_averageratingstars}" readonly="true" />  <!-- #{ratingView.rating4} -->
+
+									<p:commandLink action="#{rooms.roomDetails(roomSearched.id)}"
+										title="View Detail">
+										<!-- :form:carDetail            PF('carDialog').show()-->
+										<!--  <f:param name="action" value="roomSearched.id" /> -->
+
+										<h:outputText styleClass="ui-icon ui-icon-search"
+											style="margin:0 auto;" />
+										<!--  <f:setPropertyActionListener value="" target="" /> -->
+										<!--#{car}            #{dataGridView.selectedCar}-->
+									</p:commandLink>
+								</h:panelGrid>
+        </p:panel>
+ 
+    </p:dataGrid>
+ 
+<!--     <p:dialog header="Car Info" widgetVar="carDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="false">
+        <p:outputPanel id="carDetail" style="text-align:center;">
+            <p:panelGrid  columns="2" rendered="#{not empty dataGridView.selectedCar}" columnClasses="label,value">
+                <f:facet name="header">
+                    <p:graphicImage name="demo/images/car/#{dataGridView.selectedCar.brand}-big.gif"/> 
+                </f:facet>
+ 
+                <h:outputText value="Id:" />
+                <h:outputText value="#{dataGridView.selectedCar.id}" />
+ 
+                <h:outputText value="Year" />
+                <h:outputText value="#{dataGridView.selectedCar.year}" />
+ 
+                <h:outputText value="Color:" />
+                <h:outputText value="#{dataGridView.selectedCar.color}" style="color:#{dataGridView.selectedCar.color}"/>
+ 
+                <h:outputText value="Price" />
+                <h:outputText value="$#{dataGridView.selectedCar.price}" />
+            </p:panelGrid>
+        </p:outputPanel>
+    </p:dialog> -->
+</h:form>
+
+		</h:panelGroup>
+</h:panelGroup>
+		</ui:define>
+	</ui:composition>
+</h:body>
+</html>

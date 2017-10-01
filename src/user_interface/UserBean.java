@@ -6,7 +6,7 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
-
+import database.RecommendationsDAO;
 import database.UserDAO;
 import entities.User;
 
@@ -138,7 +138,7 @@ public class UserBean {
 			this.copyUser(currentUser);
 			if (role.equals("Admin")) 
 			{
-				return "/restricted/admin_home?faces-redirect=true";
+				return "/restricted/admin/admin_home?faces-redirect=true";
 			}
 			else {
 				if (isConfirmed) 
@@ -147,7 +147,7 @@ public class UserBean {
 				}
 				else
 				{
-					return "/restricted/not_approved?faces-redirect=true";
+					return "/restricted/host/not_approved?faces-redirect=true";
 				}
 			}
 		}
@@ -240,7 +240,7 @@ public class UserBean {
 	{
         UserDAO userDB = new UserDAO();
         String retMessage = userDB.updateAllUsersConfirmation();
-        return "/restricted/audit_accounts?faces-redirect=true";
+        return "/restricted/admin/audit_accounts?faces-redirect=true";
     }
 
 
@@ -314,8 +314,15 @@ public class UserBean {
 	
 	public String getPendingUsers() 
 	{ 
-		UserDAO userDB = new UserDAO();
-		return String.valueOf(userDB.getAllNotConfirmedHosts().size());
+		RecommendationsDAO r = new RecommendationsDAO();
+		int recommendations = r.getAllRecommendations(username).size();
+		return "Recommendations of user "+recommendations;
+		
+//		UserDAO userDB = new UserDAO();
+//		return String.valueOf(userDB.getAllNotConfirmedHosts().size());
+//		
+		
+		
 	}
 
 }

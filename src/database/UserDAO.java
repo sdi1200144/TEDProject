@@ -368,8 +368,7 @@ public class UserDAO
         }
     }
     
-    
-    public String updateUser(String username, String password, String email, String mobileNumber) 
+    public String updateUserProfilePicture(String username , String profilePicture)
     {
     	String retMessage = "";
     	EntityManagerFactory emf = Persistence.createEntityManagerFactory("TEDProject");
@@ -377,15 +376,12 @@ public class UserDAO
     	EntityTransaction tx = em.getTransaction();
     	tx.begin();
 
-    	Query q = em.createQuery("Update User u set u.password = :password, u.email = :email, u.mobileNumber = :mobileNumber where u.username = :username"); 
+    	Query q = em.createQuery("Update User u set u.photo = :profilePicture where u.username = :username"); 
     	q.setParameter("username", username);
-    	q.setParameter("password", password);
-    	q.setParameter("email", email);
-    	q.setParameter("mobileNumber", mobileNumber);
-
+    	q.setParameter("profilePicture", profilePicture);
     	try 
     	{
-    		q.executeUpdate(); //TODO inside try cause it may fail, correct?
+    		q.executeUpdate(); 
 
 
     		tx.commit();
@@ -405,5 +401,74 @@ public class UserDAO
     	{
     		em.close();
     	}
+    }
+    
+    
+    public String updateUser(String username, String password, String email, String mobileNumber) 
+    {
+    	String retMessage = "";
+    	EntityManagerFactory emf = Persistence.createEntityManagerFactory("TEDProject");
+    	EntityManager em = emf.createEntityManager();
+    	EntityTransaction tx = em.getTransaction();
+    	tx.begin();
+
+    	Query q = em.createQuery("Update User u set u.password = :password, u.email = :email, u.mobileNumber = :mobileNumber where u.username = :username"); 
+    	q.setParameter("username", username);
+    	q.setParameter("password", password);
+    	q.setParameter("email", email);
+    	q.setParameter("mobileNumber", mobileNumber);
+
+    	try 
+    	{
+    		q.executeUpdate(); 
+
+
+    		tx.commit();
+    		retMessage = "ok";
+    		return retMessage;
+    	} 
+    	catch (PersistenceException e) 
+    	{
+    		if (tx.isActive()) 
+    		{
+    			tx.rollback();
+    		}
+    		retMessage = e.getMessage();
+    		return retMessage;
+    	} 
+    	finally 
+    	{
+    		em.close();
+    	}
+    }
+    
+    
+    
+    public User findIdUser(int userId) 
+    {
+        User user = null;
+
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("TEDProject");
+        EntityManager em = emf.createEntityManager();
+
+        EntityTransaction tx = em.getTransaction();
+        tx.begin();
+
+        Query q = em.createQuery("Select u from User u where u.id = :userId");
+        q.setParameter("userId", userId);
+        List users = q.getResultList();
+        tx.commit();
+        em.close();
+
+        if (users != null && users.size() == 1) 
+        {
+            user = (User) users.get(0);
+        } 
+        else 
+        {
+            user = null;
+        }
+
+        return user;
     }
 }

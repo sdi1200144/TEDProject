@@ -19,7 +19,7 @@
 							class="icon-bar"></span>
 					</button>
 					<h:outputText value="&lt;br/&gt;" escape="false" />
-					<a class="navbar-brand" href="index.xhtml">DIAirbnb</a>
+					<a class="navbar-brand" href="/TEDProject/faces/index.xhtml">DIAirbnb</a>
 				</h:panelGroup>
 				<!-- 				<div class="navbar-collapse collapse" >
 					<ul class="nav navbar-nav navbar-right">
@@ -37,9 +37,14 @@
 
 				</div> -->
 				<h:panelGroup id="navigation" layout="block" styleClass="collapse navbar-collapse">
-					<ul class="nav navbar-nav navbar-right">
+				
+				
+				
+		<ui:fragment rendered="#{user.currentUser == null}">
+
+	<ul class="nav navbar-nav navbar-right">
 						<li><h:outputText value="&lt;br/&gt;" escape="false" /> <h:link
-								outcome="test_upload.xhtml">
+								outcome="/faces/registration.xhtml">
 								<h:panelGroup styleClass="glyphicon glyphicon-user"></h:panelGroup>
 								Register
 						</h:link></li>
@@ -51,6 +56,7 @@
 							<!--  style="padding-top: 5px; padding-left: 20px;" -->
 							<!-- class="navbar-form navbar-right" style="margin-right: 0px;"
  -->
+
 							<li class="login-fields">
 								<h:panelGroup layout="block" styleClass="white-font">Username:</h:panelGroup> 
 									<h:inputText id="username" value="#{user.username}" styleClass="form-control" a:placeholder="Enter your Username" required="true" requiredMessage="Please enter your username" /> 
@@ -77,6 +83,95 @@
 						</h:form>
 					</ul>
 
+
+</ui:fragment>		
+				
+				
+				
+				
+				<ui:fragment rendered="#{user.currentUser != null}">
+				
+				<ul class="nav navbar-nav navbar-right">
+					
+						<h:panelGroup rendered="#{user.showAuditAccounts()}">
+						<li>
+						<h:outputText value="&lt;br/&gt;" escape="false" /> 
+							<h:link outcome="/faces/restricted/admin/audit_accounts.xhtml" >
+							<h:panelGroup styleClass="glyphicon glyphicon-user"></h:panelGroup>
+								Audit Accounts
+							</h:link>
+						</li>
+						</h:panelGroup>
+						
+						
+						<h:panelGroup rendered="#{user.showExportXMLData()}">
+						<li>
+						<h:outputText value="&lt;br/&gt;" escape="false" /> 
+							<h:link outcome="/faces/restricted/admin/exportxmldata.xhtml" >
+							<h:panelGroup styleClass="glyphicon glyphicon-share-alt"></h:panelGroup>
+								Export XML Data
+							</h:link>
+						</li>
+						</h:panelGroup>
+
+
+						<h:panelGroup rendered="#{user.showListings()}">
+						<li>
+						<h:outputText value="&lt;br/&gt;" escape="false" /> 
+						<h:link outcome="/faces/restricted/host/mylistings.xhtml" >
+						<h:panelGroup styleClass="glyphicon glyphicon-home"></h:panelGroup>
+								My Listings
+						</h:link></li></h:panelGroup>
+						
+
+						<h:panelGroup rendered="#{user.showTrips()}"><li>
+						<h:outputText value="&lt;br/&gt;" escape="false" /> 
+						<h:link outcome="/faces/restricted/guest/mytrips.xhtml" >
+						<h:panelGroup styleClass="glyphicon glyphicon-plane"></h:panelGroup>
+								My Trips
+						</h:link>
+						</li></h:panelGroup>
+						
+						
+						<h:panelGroup rendered="#{user.showMessages()}"><li>
+						<h:outputText value="&lt;br/&gt;" escape="false" /> 
+						<h:link outcome="/faces/restricted/mymessages.xhtml" >
+						<h:panelGroup styleClass="glyphicon glyphicon-envelope"></h:panelGroup>
+								My Messages
+						</h:link>
+						</li></h:panelGroup>
+						
+						
+						<h:panelGroup rendered="#{user.showAccountSettings()}"><li>
+						<h:outputText value="&lt;br/&gt;" escape="false" /> 
+							<h:link	outcome="#{profile.changeProfile(user.username)}" >
+							<h:panelGroup styleClass="glyphicon glyphicon-cog"></h:panelGroup>
+								Account Settings
+							</h:link>
+						</li></h:panelGroup>
+						
+						
+						<li class="logout-button">
+						    <h:form id="logoutForm">
+								<h:commandButton id="logOut" value="Log out" styleClass="btn btn-default navbar-btn" action="#{user.logout() }" />
+							</h:form>
+						</li>
+
+					</ul>
+				
+				
+				
+				</ui:fragment>
+				
+				
+		
+		
+		
+		
+		
+		
+		
+		
 				</h:panelGroup>
 				<!-- <h:commandButton value="Register" styleClass="btn btn-default" data-toggle="modal" data-target="#Login"
 						 /> -->

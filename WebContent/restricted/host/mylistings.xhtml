@@ -17,7 +17,7 @@
 
 </h:head>
 <h:body>
-	<ui:composition template="/template/layout_restricted.xhtml">
+	<ui:composition template="/template/layout.xhtml">
 		<ui:define name="content">
 		
 			<!-- Validation JavaScript & CSS -->
@@ -39,34 +39,39 @@
 						<h:form class="well form-horizontal" action=" " method="post"  id="userlist_form">
 				
 							
-									<p:dataTable value="#{rooms.getHostRoomList(user.username)}" var="room" scrollable="true" scrollHeight="380" >
+									<p:dataTable value="#{rooms.getHostRoomList(user.username)}" var="roomVar" scrollable="true" scrollHeight="380" >
 					                        <f:facet name="header">
 					                            My Listings
 					                        </f:facet>
 			
 					                        <p:column headerText="# Code" >
-					                            <div align="center"> <h:outputText value="#{room.id}" /> </div>
+					                            <div align="center"> <h:outputText value="#{roomVar.id}" /> </div>
 					                        </p:column>
 			
 					                        <p:column headerText="Name">
-					                            <div align="center"> <h:outputText value="#{room.name}" /> </div>
+					                            <div align="center"> <h:outputText value="#{roomVar.name}" /> </div>
 					                        </p:column>
 			
 					                        <p:column headerText="Address" >
-					                            <div align="center"> <h:outputText value="#{room.address}" /> </div>
+					                            <div align="center"> <h:outputText value="#{roomVar.address}" /> </div>
 					                        </p:column>
 			
 					                        <p:column headerText="Cost Per Night (€)" >
-					                           <div align="center"> <h:outputText value="#{room.costPerNight}" /> </div>
+					                           <div align="center"> <h:outputText value="#{roomVar.costPerNight}" /> </div>
 					                        </p:column>
 			
 					                        <p:column headerText="Average Rating Stars" >
-					                            <div align="center"> <p:rating value="#{room.averageRatingStars}" readonly="true" /> </div>
+					                            <div align="center"> <p:rating value="#{roomVar.int_averageratingstars}" readonly="true" /> </div>
 					                        </p:column>
 			
 					                        <p:column headerText="Details">
-					                            <div align="center"> <p:commandButton icon="ui-icon-person" action="#{room.seeRoomDetails()}"  style=" width: 60px"/> </div>
-					                        </p:column>    
+					                            <div align="center"> <p:commandButton icon="ui-icon-search" action="#{roomVar.seeRoomDetails()}"  style=" width: 60px"/> </div>
+					                        </p:column>   
+					                        
+					                        <p:column headerText="Edit">
+					                            <div align="center"> <p:commandButton icon="ui-icon-pencil" action="#{roomVar.editRoomDetails()}"  style=" width: 60px"/> </div>
+					                        </p:column>   
+					                         
 			                    	</p:dataTable>
 			                    	
 			                    	<p:commandButton id="approveAll" value="Upload new home" icon="ui-icon-circle-check" action="#{room.uploadNewHome()}" style="background-color: #C5E1A5; margin-top: 20px;"/>

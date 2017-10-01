@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<title>Ted Project</title>
+	<!--  <h:outputStylesheet name="newcss.css" library="css"/> -->
+	<link
+		href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css"
+		rel="stylesheet" />
+	<link
+		href="http://fonts.googleapis.com/css?family=Abel|Open+Sans:400,600"
+		rel="stylesheet" />
+	<link rel="shortcut icon" type="image/x-icon" href="#{resource['images/favicon.ico']}" />
+
+</h:head>
+<h:body>
+	<ui:composition template="/template/layout.xhtml">
+		<ui:define name="content">
+			
+
+     		
+			
+			<h:panelGroup layout="block" styleClass="content-padding">
+
+
+				<h:panelGroup layout="block"
+					styleClass="vpadding container semitransparent ">
+					<h:panelGroup layout="block"
+						styleClass="col-md-6 col-md-offset-3 panel panel-default text-center">
+
+						<h2>Send Message</h2>
+						<h:form id="searchForm" styleClass="form-horizontal">
+
+
+							<h:panelGroup layout="block" styleClass="form-group col-md-12">
+								<h:outputLabel value="To" />
+
+								<h:panelGroup layout="block" styleClass="col-md-12">
+									<h:outputText id="recipient" styleClass="form-control"
+										value="#{message.recipient}" />
+								</h:panelGroup>
+							</h:panelGroup>
+
+
+							<h:panelGroup layout="block" styleClass="form-group col-md-12">
+								<h:outputLabel value="Write your message" />
+								<h:panelGroup layout="block" styleClass="col-md-12">
+								<p:inputTextarea rows="5" cols="30" value="#{message.messageText}" autoResize="false" />
+								
+								</h:panelGroup>
+							</h:panelGroup>
+							
+							<h:panelGroup layout="block"
+								styleClass="form-group last col-md-12">
+								<h:panelGroup layout="block" styleClass="col-md-12">
+									<h:commandButton value="Send" class="btn btn-primary"
+										action="#{message.sendMessage}" />
+								</h:panelGroup>
+							</h:panelGroup>
+
+							<!-- <h:commandButton onclick = "showMessage();" value="TEST"/> -->
+							<!-- 			<h:commandButton value="login" />
+							<h:messages globalOnly="true" styleClass="error" /> -->
+						</h:form>
+					</h:panelGroup>
+
+
+				</h:panelGroup>
+			</h:panelGroup>
+
+		</ui:define>
+		<!--   <ui:define name="footer">
+                <h1> My footer </h1>
+            </ui:define>  -->
+
+
+	</ui:composition>
+
+	<h:outputScript library="js" name="date.js" />
+</h:body>
+</html>

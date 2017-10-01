@@ -2,17 +2,17 @@ package user_interface;
 
 import entities.User;
 
-import java.io.FileNotFoundException;
+
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-
-import org.apache.cxf.helpers.IOUtils;
-import org.primefaces.event.FileUploadEvent;
+import javax.servlet.ServletContext;
 import org.primefaces.model.UploadedFile;
 
 import database.UserDAO;
@@ -34,8 +34,7 @@ public class ProfileBean
 	private boolean isConfirmed;
 	private User currentUser;
 
-	private UploadedFile profilePhotoFile;
-   
+	private UploadedFile uploadedFile;
 
 	public String getId() {
 		return id;
@@ -124,6 +123,16 @@ public class ProfileBean
 	public void setCurrentUser(User currentUser) {
 		this.currentUser = currentUser;
 	}
+	
+	public UploadedFile getUploadedFile() {
+		return uploadedFile;
+	}
+
+
+
+	public void setUploadedFile(UploadedFile uploadedFile) {
+		this.uploadedFile = uploadedFile;
+	}
 
 
    
@@ -143,7 +152,7 @@ public class ProfileBean
     	photo = p.getPhoto();
     	isConfirmed = p.getIsConfirmed();
     	
-        return "/restricted/user_profile?faces-redirect=true";
+        return "/restricted/admin/user_profile?faces-redirect=true";
     }
     
     public String changeProfile(String p_username) 
@@ -195,14 +204,14 @@ public class ProfileBean
         UserDAO userDB = new UserDAO();
         String retMessage = userDB.updateUserConfirmation(username) ;
         isConfirmed = true;
-        return "/restricted/user_profile?faces-redirect=true";
+        return "/restricted/admin/user_profile?faces-redirect=true";
     }
 
     public String goBack(String role) 
     {
         if (role.equals("Admin")) 
         {
-            return "/restricted/audit_accounts?faces-redirect=true";
+            return "/restricted/admin/audit_accounts?faces-redirect=true";
         } 
         else 
         {
@@ -218,7 +227,8 @@ public class ProfileBean
 		}
 		else
 		{
-			return photo;
+			System.out.println("photo is "+photo);
+			return "/resources/images/"+photo;
 		}
 	}
     
@@ -228,22 +238,7 @@ public class ProfileBean
     
 		UserDAO userDB = new UserDAO();
 		
-		
-		if(profilePhotoFile!=null)
-    	{
-	        String filePath = "/resources/images/profile_photo_submissions/" + profilePhotoFile.getFileName() + ".jpg";
-	        System.out.println("filepath is "+filePath);
-	        
-	        FileOutputStream stream = new FileOutputStream(filePath);
-	        try {
-	            stream.write(profilePhotoFile.getContents());
-	        } finally {
-	            stream.close();
-	        }
-	
-	        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, profilePhotoFile.getFileName() + " is uploaded.", null);
-	        FacesContext.getCurrentInstance().addMessage(null, message);
-    	}
+		uploadPhoto();
 		
 		
 		String retMessage = userDB.updateUser(username, password, email, mobileNumber);
@@ -260,6 +255,7 @@ public class ProfileBean
 			}
 			else
 			{
+			
 				FacesContext.getCurrentInstance().addMessage("changeUser_form:role",new FacesMessage("Oops, something went wrong! Please try again later!"));
 				return email = null;
 			}
@@ -268,18 +264,78 @@ public class ProfileBean
     
     
     
-    public UploadedFile getFile() {
-        return profilePhotoFile;
-    }
- 
-    public void setFile(UploadedFile file) {
-        this.profilePhotoFile = file;
-    }
-     
-    public void upload(FileUploadEvent event) throws FileNotFoundException, IOException, InterruptedException 
+    public void uploadPhoto()
     {
+    	UserDAO userDB = new UserDAO();
     	
+			System.out.println("here");
+			// The user submitted a file for his profile picture
+			// First we need to check if this an image and its size is less than 1 megabyte
+			
+			String contentType = uploadedFile.getContentType();
+			long size = uploadedFile.getSize();
+			if(!contentType.contains("image"))
+			{
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Upload profile picture error" ," You are allowed to upload only images"));
+				//FacesContext.getCurrentInstance().addMessage("changeUser_form:photo",new FacesMessage("Upload profile picture error - You are allowed to upload only images"));
+				return ;
+			}
+			else if(size > 1048576)
+			{
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Upload profile picture error" ," The maximum file size allowed is 1 Megabyte !"));
+				//FacesContext.getCurrentInstance().addMessage("changeUser_form:photo",new FacesMessage("Upload profile picture error - The maximum file size allowed is 1 Megabyte !"));
+				return ;
+			}
+			else
+			{
+				//String newFileName = servletContext.getRealPath("")+ "uploaded\\" +uploadedFile.getFileName() ;
+				// upload file to uploaded folder
+				
+				int p=uploadedFile.getFileName().lastIndexOf(".");
+				String imageType = uploadedFile.getFileName().substring(p);
+			
 
-    }
+				String newFileName = "C:\\Users\\User\\workspace\\TEDProject\\WebContent\\resources\\images\\"+username+imageType;
+				
+				
+				
+		    	// TODO 
+		    	photo = username+imageType;
+		    	
+		    
+		    	try
+		    	{
+		    		FileOutputStream fos = new FileOutputStream(new File(newFileName));
+		    		InputStream is = uploadedFile.getInputstream();
+		    		int BUFFER_SIZE = 8192;
+		    		byte[] buffer = new byte[BUFFER_SIZE];
+		    		int a;
+		    		while(true)
+		    		{
+		    			a = is.read(buffer);
+		    			if(a < 0) break;
+		    			fos.write(buffer, 0, a);
+		    			fos.flush();
+		    		}
+		    		fos.close();
+		    		is.close();
+		    		
+		    		// Update profile picture path to database
+		    		userDB.updateUserProfilePicture(username,photo);
+		    	}
+		    	catch(IOException e)
+		    	{
+		    		System.out.println(e);
+		    	}
+		
+			}
+			
+		}
+    
+    
+  
+    
+    
+      
 
 }

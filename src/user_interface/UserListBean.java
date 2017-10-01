@@ -67,6 +67,14 @@ public class UserListBean
             }
         }
     }
+    
+    
+    public User findUserFromId(int guestId) {
+    	userDB = new UserDAO();
+    	User user = null;
+    	user = userDB.findIdUser(guestId);
+    	return user;
+    }
 
 
 }

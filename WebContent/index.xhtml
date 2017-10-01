@@ -21,8 +21,7 @@
 	<style>
 
 /* 		/* http://css-tricks.com/perfect-full-page-background-image/ */
-*
-/
+*/
 /* 		html { */
 /* 			background: url(images/test.jpeg) no-repeat center center fixed;  */
 /* 			-webkit-background-size: cover; */
@@ -61,7 +60,8 @@
 
 </h:head>
 <h:body>
-	<ui:composition template="template/layout.xhtml">
+
+	<ui:composition template="/template/layout.xhtml">
 		<!--  <ui:define name="header">
                 <h2> My Header </h2>
             </ui:define> -->
@@ -91,11 +91,14 @@
 
 								<h:panelGroup layout="block" styleClass="col-md-12">
 									<h:inputText id="place" styleClass="form-control"
-										a:placeholder="Address, City, Country" value="" />
+										required="true" requiredMessage="Please enter where you want to go"
+										a:placeholder="Address, City, Country" value="#{room.roomPlace}" />
+										<h:message for="place" styleClass="error"/>
 								</h:panelGroup>
 							</h:panelGroup>
 							<h:panelGroup layout="block"
 								styleClass='form-group col-md-6 checkin-padding pull-left'>
+								
 								<h:outputLabel value="Check in" />
 								<h:outputText value="&lt;br/&gt;" escape="false" />
 
@@ -103,49 +106,63 @@
 									<!--  <input type='text' class="form-control" /> -->
 
 									<h:inputText id="checkin" styleClass="form-control datepicker"
-										a:placeholder="DD/MM/YYYY" value="" />
+										a:placeholder="DD/MM/YYYY" value="#{room.checkInChosen}" required="true" requiredMessage="Please enter check in date"
+										binding="#{calendar1Component}" />
 									<h:panelGroup styleClass="input-group-addon">
 										<h:panelGroup styleClass="glyphicon glyphicon-calendar"></h:panelGroup>
 									</h:panelGroup>
+									
 								</h:panelGroup>
+								<h:message for="checkin" styleClass="error"/>
 							</h:panelGroup>
+							
+							
 							<h:panelGroup layout="block"
 								styleClass="form-group col-md-6 checkout-padding pull-right">
-								<h:outputLabel value="Check out" />
+								<h:outputLabel value="Check out" /> 
 
 								<h:outputText value="&lt;br/&gt;" escape="false" />
 								<h:panelGroup layout="block" styleClass='input-group date'>
 									<!-- <input type='text' class="form-control" /> -->
-									<h:inputText id="checkout" styleClass="form-control datepicker" a:placeholder="DD/MM/YYYY" value=""/>
+									<h:inputText id="checkout" styleClass="form-control datepicker" a:placeholder="DD/MM/YYYY" value="#{room.checkOutChosen}" required="true" requiredMessage="Please enter check out date">
+									
+												<f:validator validatorId="calendarValidator" />
+    											<f:attribute name="calendar1Component" value="#{calendar1Component}" />
+									</h:inputText>
 									<h:panelGroup styleClass="input-group-addon">
 										 <!-- <h:commandButton onclick = "date();"> -->
 										<h:panelGroup styleClass="glyphicon glyphicon-calendar"></h:panelGroup>
 										<!-- </h:commandButton> -->
 									</h:panelGroup>
-
 								</h:panelGroup>
+								<h:message for="checkout" styleClass="error"/>
 							</h:panelGroup>
 
 							<!--  <h:message for="place" styleClass="error"/> -->
 
+							
+							
 
 							<h:panelGroup layout="block" styleClass="form-group col-md-12">
 								<h:outputLabel value="Guest(s)" />
-
-
-
 								<h:panelGroup layout="block" styleClass="col-md-12">
 									<h:inputText id="guests" styleClass="form-control"
-										a:placeholder="Number of guests" value="" />
+										a:placeholder="Number of guests" value="#{room.guestsChosen}" required="true" requiredMessage="Please enter number of guests">
+												<f:validator validatorId="positiveNumberValidator" />
+								  	</h:inputText>
+								  	<h:message for="guests" styleClass="error"/>
 								</h:panelGroup>
 							</h:panelGroup>
+							
+							
+							
 							<h:panelGroup layout="block"
-								styleClass="form-group last col-md-12">
+								styleClass="form-group last col-md-12" rendered="#{user != host}">
 
 								<h:outputLabel value="Let's Go!" />
 								<h:panelGroup layout="block" styleClass="col-md-12">
 									<h:commandButton value="Search" class="btn btn-default"
-										action="#{user.add}" />
+										action="#{room.search()}" />
 								</h:panelGroup>
 
 							</h:panelGroup>
